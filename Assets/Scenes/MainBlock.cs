@@ -14,6 +14,7 @@ public class MainBlock : MonoBehaviour
     private Rigidbody2D rigidbody;
 
     public Dictionary<GameObject, Thruster> thrusters;
+    public Dictionary<GameObject, Weapon> weapons;
 
     public UnityEvent<MainBlock> connectedToParent;
 
@@ -37,6 +38,12 @@ public class MainBlock : MonoBehaviour
     {
         this.thrusters.Add(newBlock.gameObject, newBlock);
         this.parentBlock.NewThruster(newBlock);
+    }
+    
+    public void NewWeapon(Weapon newBlock)
+    {
+        this.weapons.Add(newBlock.gameObject, newBlock);
+        this.parentBlock.NewWeapon(newBlock);
     }
 
     void ConnectToShip(MainBlock otherBlock)
