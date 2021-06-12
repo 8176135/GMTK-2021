@@ -8,7 +8,7 @@ public class Robot : MonoBehaviour
 {
     private MainBlock mainBlock;
     private new Rigidbody2D rigidbody2D;
-    public Vector2 targetDirection;
+    public Vector2 targetPosition;
     private Vector2 controlDirection;
 
     public float turnSpeedPerThruster = 400.0f;
@@ -42,9 +42,13 @@ public class Robot : MonoBehaviour
         // UpdateThrusters();
     }
 
-    public void Turning(Vector2 targetDirection)
+    public void Turning(Vector2 targetPosition)
     {
-        this.targetDirection = targetDirection;
+        // TODO: Change this to a local screen space value, this is only updated when the mouse moves,
+        // and this value is currently relative to world space, not screen space. That means when the player moves,
+        // the target position is no longer where the mouse is, because the camera moves across the world.
+        // This messes up guns aiming and rotation, more noticeable the further you move the player without moving the mouse.
+        this.targetPosition = targetPosition;
     }
 
     public void UpdateThrusters()
@@ -66,7 +70,7 @@ public class Robot : MonoBehaviour
 
         foreach (var weapon in weapons)
         {
-            weapon.Value.Aim(this.targetDirection);
+            weapon.Value.Aim(this.targetPosition);
         }
     }
 
@@ -78,7 +82,7 @@ public class Robot : MonoBehaviour
         var facingDirection = this.rigidbody2D.transform.up;
 
         var position = transform.position;
-        var difAngle = Vector2.SignedAngle(facingDirection, (Vector2) position - targetDirection);
+        var difAngle = Vector2.SignedAngle(facingDirection, (Vector2) position - targetPosition);
         var actualTorque = robotMaxTorque + thrusters.Count * turnSpeedPerThruster; 
         rigidbody2D.AddTorque(Mathf.Clamp(difAngle * 0.05f, -1.0f, 1.0f) * actualTorque * Time.deltaTime);
         
