@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MainBlock : MonoBehaviour
 {
@@ -10,6 +12,10 @@ public class MainBlock : MonoBehaviour
     private MainBlock parentBlock;
     private FixedJoint2D parentJoint;
     private Rigidbody2D rigidbody;
+
+    public Dictionary<GameObject, Thruster> thrusters;
+
+    public UnityEvent<MainBlock> connectedToParent;
 
     // public float debugThrustValue = 50;
 
@@ -26,7 +32,13 @@ public class MainBlock : MonoBehaviour
     void Update()
     {
     }
-    
+
+    void NewThruster(Thruster newBlock)
+    {
+        this.thrusters.Add(newBlock.gameObject, newBlock);
+        this.parentBlock.NewThruster(newBlock);
+    }
+
     void ConnectToShip(MainBlock otherBlock)
     {
         this.connectedToShip = true;
@@ -34,6 +46,8 @@ public class MainBlock : MonoBehaviour
         parentJoint.connectedBody = this.parentBlock.GetComponent<Rigidbody2D>();
         parentJoint.enabled = true;
         otherBlock.connectedObjects.Add(this);
+
+        connectedToParent.Invoke(otherBlock);
     }
 
     float GetMassSum()
