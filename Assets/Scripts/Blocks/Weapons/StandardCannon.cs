@@ -5,26 +5,33 @@ public class StandardCannon : Weapon
 {
     public float weaponInterval = 0.5f;
     public float weaponCooldown = 0;
-    public bool fireWeapon = false;
 
     public GameObject bullet;
     public Transform rendererTransform;
+
 
     void Start()
     {
         base.Start();
     }
+
     // Update is called once per frame
     void Update()
     {
-        if (weaponCooldown < weaponInterval)
+        if (target.HasValue)
         {
-            weaponCooldown += Time.deltaTime;
-        }
+            var actualRotation = Vector2.SignedAngle(Vector2.up, target.Value - transform.position);
+            rendererTransform.rotation =
+                Quaternion.RotateTowards(rendererTransform.rotation, Quaternion.Euler(0, 0, actualRotation), 4f);
+            if (weaponCooldown < weaponInterval)
+            {
+                weaponCooldown += Time.deltaTime;
+            }
 
-        if (fireWeapon)
-        {
-            FireWeapon();
+            if (fireWeapon)
+            {
+                FireWeapon();
+            }
         }
     }
 
@@ -51,12 +58,11 @@ public class StandardCannon : Weapon
     {
         if (weaponCooldown >= weaponInterval)
         {
+            weaponCooldown = 0;
             var spawnedObj = Instantiate(bullet, transform.position, rendererTransform.rotation);
             var spawnedBullet = spawnedObj.GetComponent<Bullet>();
-            Debug.Log(spawnedBullet);
+            this.mainBlock.rigidbody.AddForce(-transform.forward * 10, ForceMode2D.Impulse);
             spawnedBullet.ownedRootBlock = this.mainBlock.GetRootBlock();
-            
-            weaponCooldown = 0;
         }
     }
 
