@@ -48,7 +48,7 @@ public class Robot : MonoBehaviour
 
         foreach (var thruster in thrusters)
         {
-            thruster.Value.setVisuals(rotation, force);
+            thruster.Value.SetVisuals(rotation, force);
         }
     }
 

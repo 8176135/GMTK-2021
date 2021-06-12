@@ -7,7 +7,7 @@ public class Thruster : MonoBehaviour
     private MainBlock mainBlock;
     public Transform rendererTransform;
     public Rigidbody2D Rigidbody2D;
-    public Animator state;
+    public Animator animator;
 
     private static readonly int Power = Animator.StringToHash("Power");
 
@@ -19,9 +19,9 @@ public class Thruster : MonoBehaviour
         mainBlock.connectedToParent.AddListener(c => c.NewThruster(this));
     }
 
-    public void setVisuals(float newRotation, float force)
+    public void SetVisuals(float newRotation, float force)
     {
-        state.SetFloat(Power, force);
+        animator.SetFloat(Power, force);
 
         if (force == 0) return;
         var rotation = newRotation - transform.eulerAngles.z;
