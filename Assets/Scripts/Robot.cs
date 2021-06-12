@@ -11,8 +11,6 @@ public class Robot : MonoBehaviour
     public Vector2 targetDirection;
     private Vector2 controlDirection;
 
-    public GameObject dummy;
-
     public float turnSpeedPerThruster = 400.0f;
     public float thrustPowerSpeedPerThruster = 1.0f;
     
@@ -26,6 +24,16 @@ public class Robot : MonoBehaviour
         mainBlock = this.GetComponent<MainBlock>();
         rigidbody2D = this.GetComponent<Rigidbody2D>();
         // pid = new PidController(1.0, 1.0, )
+    }
+
+    public void Fire()
+    {
+        var weapons = mainBlock.weapons;
+
+        foreach (var weapon in weapons)
+        {
+            weapon.Value.StartFiringWeapon();
+        }
     }
 
     public void Thrust(Vector2 normalisedThrustTarget)
@@ -52,6 +60,16 @@ public class Robot : MonoBehaviour
         }
     }
 
+    public void AimGuns()
+    {        
+        var weapons = mainBlock.weapons;
+
+        foreach (var weapon in weapons)
+        {
+            weapon.Value.Aim(this.targetDirection);
+        }
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -72,5 +90,7 @@ public class Robot : MonoBehaviour
         rigidbody2D.AddForce(controlDirection * 0.5f);
         
         UpdateThrusters();
+        AimGuns();
+
     }
 }

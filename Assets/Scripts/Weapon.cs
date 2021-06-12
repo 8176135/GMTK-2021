@@ -10,6 +10,7 @@ public abstract class Weapon : MonoBehaviour
         mainBlock = this.GetComponent<MainBlock>();
         mainBlock.connectedToParent.AddListener(c => c.NewWeapon(this));
     }
-    protected abstract void FireWeapon();
-    protected abstract void StopFiringWeapon();
+    public abstract void StartFiringWeapon();
+    public abstract void StopFiringWeapon();
+    public abstract void Aim(Vector2 target);
 }
