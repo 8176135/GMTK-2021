@@ -25,7 +25,7 @@ public class StandardCannon : Weapon
 
     private void FireWeapon()
     {
-        Instantiate(bullet, transform.position, transform.rotation);
+        Instantiate(bullet, transform.position, rendererTransform.rotation);
     }
 
     public override void StartFiringWeapon()
@@ -42,7 +42,7 @@ public class StandardCannon : Weapon
     {
         if (!rendererTransform) return;
 
-        var rotation = Vector2.SignedAngle(Vector2.up, target - new Vector2(transform.localPosition.x, transform.localPosition.y));
-        rendererTransform.localRotation = Quaternion.RotateTowards(rendererTransform.localRotation, Quaternion.Euler(0,0,rotation), 4f);
+        var rotation = Vector2.SignedAngle(Vector2.up, target - new Vector2(transform.position.x, transform.position.y));
+        rendererTransform.rotation = Quaternion.Euler(0,0,rotation);
     }
 }

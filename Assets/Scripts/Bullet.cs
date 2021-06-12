@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         rigidbody2D = this.GetComponent<Rigidbody2D>();
-        rigidbody2D.AddForce(Vector2.up * initVelocity, ForceMode2D.Impulse);
+        rigidbody2D.AddRelativeForce(Vector2.up * initVelocity, ForceMode2D.Impulse);
     }
 
     // Update is called once per frame
