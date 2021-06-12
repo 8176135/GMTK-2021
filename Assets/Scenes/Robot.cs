@@ -9,6 +9,7 @@ public class Robot : MonoBehaviour
     private new Rigidbody2D rigidbody2D;
     public Vector2 targetDirection;
     public Vector2 thrustForce;
+    private Vector2 controlDirection;
 
     // private PidController pid;
     
@@ -32,13 +33,30 @@ public class Robot : MonoBehaviour
             thrusterCount = thrusters.Count;
         }
         var multiplier = thrusterCount + 1000;
-        
+
+        controlDirection = normalisedThrustTarget;
         thrustForce = normalisedThrustTarget * (multiplier);
+        
+        UpdateThrusters();
     }
 
     public void Turning(Vector2 targetDirection)
     {
         this.targetDirection = targetDirection;
+    }
+
+    public void UpdateThrusters()
+    {
+        var thrusters = mainBlock.thrusters;
+        if (thrusters == null) return;
+
+        var force = controlDirection.magnitude;
+        var rotation = Vector2.SignedAngle(Vector2.up, thrustForce);
+        
+        foreach (var thruster in thrusters)
+        {
+            thruster.Value.setVisuals(rotation, force);
+        }
     }
 
 
@@ -51,5 +69,7 @@ public class Robot : MonoBehaviour
         rigidbody2D.AddTorque(Mathf.Clamp(difAngle * 0.05f, -1.0f, 1.0f) * robotMaxTorque * Time.deltaTime);
         
         rigidbody2D.AddForce(thrustForce * Time.deltaTime);
+
+        UpdateThrusters();
     }
 }

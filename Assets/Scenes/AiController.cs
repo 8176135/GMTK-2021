@@ -40,7 +40,7 @@ public class AiController : MonoBehaviour
         
         // Debug.DrawLine((Vector2) this.transform.position, (Random.insideUnitCircle.normalized * 2) + (Vector2) this.transform.position, Color.red, 100.0f);
 
-        a.GetComponent<Rigidbody2D>().AddForce(-offset * 2, ForceMode2D.Impulse);
+        a.GetComponent<Rigidbody2D>().AddForce(-offset * 0, ForceMode2D.Impulse);
 
         counter++;
     }
