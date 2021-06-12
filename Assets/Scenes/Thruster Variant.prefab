@@ -1,17 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &1794131630767900132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4107259971884929834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d09c897efbeeca44bf5ac7b2b077f62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &2186386074121428477
 Animator:
   serializedVersion: 3
@@ -31,6 +19,34 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1794131630767900132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4107259971884929834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d09c897efbeeca44bf5ac7b2b077f62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6542251938104599176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4107259971884929834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ca12332c564f4f439b741e72cadc76e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrusterPower: 1
+  maxThrusterPower: 1
+  thrusterRate: 0.01
+  shouldUpdate: 1
 --- !u!1001 &4168439701271025989
 PrefabInstance:
   m_ObjectHideFlags: 0
