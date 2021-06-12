@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class StandardCannon : Weapon
 {
-    public float weaponInterval = 10;
+    public float weaponInterval = 0.5f;
     public float weaponCooldown = 0;
     public bool fireWeapon = false;
 
@@ -49,7 +49,7 @@ public class StandardCannon : Weapon
 
     private void FireWeapon()
     {
-        if (weaponCooldown > weaponInterval)
+        if (weaponCooldown >= weaponInterval)
         {
             var spawnedObj = Instantiate(bullet, transform.position, rendererTransform.rotation);
             var spawnedBullet = spawnedObj.GetComponent<Bullet>();
