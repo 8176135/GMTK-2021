@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     public float initVelocity;
     private new Rigidbody2D rigidbody2D;
 
-    public float timeToLive = 300;
+    public float timeToLive = 10;
     // Start is called before the first frame update
     void Start()
     {

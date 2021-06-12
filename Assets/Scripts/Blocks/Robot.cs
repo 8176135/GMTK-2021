@@ -4,12 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Main controller of a ship. This class is the overseer of all blocks attached to a ship.
+/// </summary>
 public class Robot : MonoBehaviour
 {
     private MainBlock mainBlock;
     private new Rigidbody2D rigidbody2D;
-    public Vector2 targetPosition;
-    private Vector2 controlDirection;
+    /// <summary>
+    /// Where the player is looking (for player, it's where the mouse is)
+    /// </summary>
+    public Vector2 targetPosition; 
+    /// <summary>
+    /// Where the player is going (for player, it's determined by WASD)
+    /// </summary>
+    private Vector2 controlDirection; 
 
     public float turnSpeedPerThruster = 400.0f;
     public float thrustPowerSpeedPerThruster = 1.0f;
@@ -26,6 +35,9 @@ public class Robot : MonoBehaviour
         // pid = new PidController(1.0, 1.0, )
     }
 
+    /// <summary>
+    /// Callback function for when a player/AI wishes to fire a weapon.
+    /// </summary>
     public void Fire()
     {
         var weapons = mainBlock.weapons;
@@ -36,17 +48,28 @@ public class Robot : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Callback function for when a player/AI wishes to thrust in a direction.
+    /// </summary>
+    /// <param name="normalisedThrustTarget">Control direction of thrust. Should be normalised.</param>
     public void Thrust(Vector2 normalisedThrustTarget)
     {
         controlDirection = normalisedThrustTarget;
         // UpdateThrusters();
     }
 
+    /// <summary>
+    /// Callback function for turning to a specific position.
+    /// </summary>
+    /// <param name="targetPosition"></param>
     public void Turning(Vector2 targetPosition)
     {
         this.targetPosition = targetPosition;
     }
 
+    /// <summary>
+    /// Visual update for thrusters.
+    /// </summary>
     public void UpdateThrusters()
     {
         var thrusters = mainBlock.thrusters;
