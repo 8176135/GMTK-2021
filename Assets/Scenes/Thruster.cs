@@ -6,6 +6,7 @@ public class Thruster : MonoBehaviour
 {
     private MainBlock mainBlock;
     public Transform rendererTransform;
+    public Rigidbody2D Rigidbody2D;
     public Animator state;
 
     private static readonly int Power = Animator.StringToHash("Power");
@@ -14,6 +15,7 @@ public class Thruster : MonoBehaviour
     void Start()
     {
         mainBlock = this.GetComponent<MainBlock>();
+        Rigidbody2D = this.GetComponent<Rigidbody2D>();
         mainBlock.connectedToParent.AddListener(c => c.NewThruster(this));
     }
 

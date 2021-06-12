@@ -8,7 +8,7 @@ using UnityEngine.Events;
 
 public class MainBlock : MonoBehaviour
 {
-    private HashSet<MainBlock> connectedObjects = new HashSet<MainBlock>();
+    public HashSet<MainBlock> connectedObjects = new HashSet<MainBlock>();
     private MainBlock parentBlock;
     private FixedJoint2D parentJoint;
     private new Rigidbody2D rigidbody;
@@ -85,7 +85,7 @@ public class MainBlock : MonoBehaviour
         parentJoint.enabled = true;
         otherBlock.connectedObjects.Add(this);
         otherBlock.massSum = otherBlock.GetMassSum();
-        otherBlock.UpdateCenterOfMass();
+        // otherBlock.UpdateCenterOfMass();
         connectedToParent.Invoke(otherBlock);
     }
 
@@ -94,36 +94,36 @@ public class MainBlock : MonoBehaviour
         return this.connectedObjects.Aggregate(this.rigidbody.mass, (a, b) => a + b.GetMassSum());
     }
 
-    Vector2 UpdateCenterOfMass()
-    {
-        var position = transform.position;
-        var answer = connectedObjects.Aggregate((baseCenterOfMass: (Vector2) position, rigidbody.mass), (a, b) =>
-        {
-            a.baseCenterOfMass += (b.GetCenterOfMass() + (Vector2)b.transform.position) * b.massSum;
-            a.mass += b.massSum;
-            return a;
-            // var (vector2, mass) = a;
-            // var massSum2 = (b.massSum + mass);
-            //
-            // var relativePosition = (Vector2)b.transform.position - vector2;
-            // return (Vector2.Lerp(b.rigidbody.centerOfMass + (Vector2)relativePosition, vector2, mass / massSum2), massSum2);
-        });
-
-        this.calculatedCenterOfMass = ((answer.baseCenterOfMass / answer.mass) - (Vector2) position);
-        if (this.parentBlock != null)
-        {
-            parentBlock.UpdateCenterOfMass();
-        }
-
-        return GetCenterOfMass();
-    }
+    // Vector2 UpdateCenterOfMass()
+    // {
+    //     // var position = transform.position;
+    //     // var answer = connectedObjects.Aggregate((baseCenterOfMass: (Vector2) position, rigidbody.mass), (a, b) =>
+    //     // {
+    //     //     a.baseCenterOfMass += (b.rigidbody.worldCenterOfMass) * b.massSum;
+    //     //     a.mass += b.massSum;
+    //     //     return a;
+    //     //     // var (vector2, mass) = a;
+    //     //     // var massSum2 = (b.massSum + mass);
+    //     //     //
+    //     //     // var relativePosition = (Vector2)b.transform.position - vector2;
+    //     //     // return (Vector2.Lerp(b.rigidbody.centerOfMass + (Vector2)relativePosition, vector2, mass / massSum2), massSum2);
+    //     // });
+    //     //
+    //     // this.rigidbody.centerOfMass = Quaternion.AngleAxis(-transform.localRotation.eulerAngles.z, Vector3.forward) *
+    //     //                               ((answer.baseCenterOfMass / answer.mass) - (Vector2) position);
+    //     // if (this.parentBlock != null)
+    //     // {
+    //     //     parentBlock.UpdateCenterOfMass();
+    //     // }
+    //     //
+    //     // return GetCenterOfMass();
+    // }
 
     public Vector2 GetCenterOfMass()
     {
-        return Quaternion.AngleAxis(transform.localRotation.eulerAngles.z, Vector3.forward) * calculatedCenterOfMass;
+        return rigidbody.centerOfMass;
     }
-
-
+    
     void OnCollisionEnter2D(Collision2D collision)
     {
         var block = collision.gameObject.GetComponent<MainBlock>();
