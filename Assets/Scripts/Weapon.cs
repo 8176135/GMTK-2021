@@ -12,5 +12,4 @@ public abstract class Weapon : MonoBehaviour
     }
     public abstract void StartFiringWeapon();
     public abstract void StopFiringWeapon();
-    public abstract void Aim(Vector2 target);
 }

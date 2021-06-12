@@ -22,6 +22,26 @@ public class StandardCannon : Weapon
                 spawnCooldown = 0;
             }
         }
+        
+    }
+
+    private Transform GetClosestEnemy(Transform[] enemies)
+    {
+        Transform closestTarget = null;
+        Vector3 currentPosition = transform.position;
+        float closestDistance = Mathf.Infinity;
+        foreach(Transform potentialTarget in enemies)
+        {
+            Vector3 directionToTarget = potentialTarget.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if(dSqrToTarget < closestDistance)
+            {
+                closestDistance = dSqrToTarget;
+                closestTarget = potentialTarget;
+            }
+        }
+        
+        return closestTarget;
     }
 
     private void FireWeapon()
@@ -39,7 +59,7 @@ public class StandardCannon : Weapon
         fireWeapon = false;
     }
 
-    public override void Aim(Vector2 target)
+    public void Aim(Vector2 target)
     {
         if (!rendererTransform) return;
 

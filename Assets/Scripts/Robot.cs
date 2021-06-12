@@ -44,10 +44,6 @@ public class Robot : MonoBehaviour
 
     public void Turning(Vector2 targetPosition)
     {
-        // TODO: Change this to a local screen space value, this is only updated when the mouse moves,
-        // and this value is currently relative to world space, not screen space. That means when the player moves,
-        // the target position is no longer where the mouse is, because the camera moves across the world.
-        // This messes up guns aiming and rotation, more noticeable the further you move the player without moving the mouse.
         this.targetPosition = targetPosition;
     }
 
@@ -61,16 +57,6 @@ public class Robot : MonoBehaviour
         foreach (var thruster in thrusters)
         {
             thruster.Value.SetVisuals(rotation, force);
-        }
-    }
-
-    public void AimGuns()
-    {        
-        var weapons = mainBlock.weapons;
-
-        foreach (var weapon in weapons)
-        {
-            weapon.Value.Aim(this.targetPosition);
         }
     }
 
@@ -94,7 +80,6 @@ public class Robot : MonoBehaviour
         rigidbody2D.AddForce(controlDirection * 0.5f);
         
         UpdateThrusters();
-        AimGuns();
 
     }
 }
