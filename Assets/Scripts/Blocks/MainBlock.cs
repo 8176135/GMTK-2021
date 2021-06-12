@@ -51,7 +51,7 @@ public class MainBlock : MonoBehaviour
             return this;
         }
     }
-    
+
     public void NewThruster(Thruster newBlock)
     {
         this.thrusters.Add(newBlock.gameObject, newBlock);
@@ -135,7 +135,7 @@ public class MainBlock : MonoBehaviour
     {
         return rigidbody.centerOfMass;
     }
-    
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         var block = collision.gameObject.GetComponent<MainBlock>();
@@ -150,18 +150,19 @@ public class MainBlock : MonoBehaviour
             {
             }
         }
-        else
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        var bullet = other.gameObject.GetComponent<Bullet>();
+        if (bullet != null && bullet.ownedRootBlock != this.GetRootBlock())
         {
-            var bullet = collision.gameObject.GetComponent<Bullet>();
-            if (bullet != null && bullet.ownedRootBlock != this.GetRootBlock())
-            {
-                Debug.Log(bullet.ownedRootBlock);
-                Debug.Log(GetRootBlock());
-                RemoveFromParent();
-                Destroy(gameObject);
-                Destroy(bullet.gameObject);
-                // TODO: spawn explosion
-            }
+            Debug.Log(bullet.ownedRootBlock);
+            Debug.Log(GetRootBlock());
+            RemoveFromParent();
+            Destroy(gameObject);
+            Destroy(bullet.gameObject);
+            // TODO: spawn explosion
         }
     }
 }
