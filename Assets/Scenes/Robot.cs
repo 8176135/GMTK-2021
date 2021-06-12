@@ -20,12 +20,12 @@ public class Robot : MonoBehaviour
         // pid = new PidController(1.0, 1.0, )
     }
 
-    void Thrust(Vector2 thrustValue)
+    public void Thrust(Vector2 thrustValue)
     {
         var thrusters = mainBlock.thrusters;
     }
 
-    void Turning(Vector2 targetDirection)
+    public void Turning(Vector2 targetDirection)
     {
         var thrusters = mainBlock.thrusters;
         var facingDirection = this.rigidbody2D.transform.up;
