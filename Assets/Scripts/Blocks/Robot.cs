@@ -76,7 +76,7 @@ public class Robot : MonoBehaviour
         {
             thruster.Rigidbody2D.AddForce(controlDirection * thrustPowerSpeedPerThruster);
         }
-        
+
         rigidbody2D.AddForce(controlDirection * 0.5f);
         
         UpdateThrusters();
