@@ -3,9 +3,8 @@ using UnityEngine;
 
 public class StandardCannon : Weapon
 {
-    public float weaponInterval = 10;
+    public float weaponInterval = 1;
     public float weaponCooldown = 0;
-    public bool fireWeapon = false;
 
     public GameObject bullet;
     public Transform rendererTransform;
@@ -24,14 +23,14 @@ public class StandardCannon : Weapon
             var actualRotation = Vector2.SignedAngle(Vector2.up, target.Value - transform.position);
             rendererTransform.rotation =
                 Quaternion.RotateTowards(rendererTransform.rotation, Quaternion.Euler(0, 0, actualRotation), 4f);
-            if (spawnCooldown < spawnInterval)
+            if (weaponCooldown < weaponInterval)
             {
-                spawnCooldown += Time.deltaTime;
-                if (spawnCooldown > spawnInterval)
-                {
-                    FireWeapon();
-                    spawnCooldown = 0;
-                }
+                weaponCooldown += Time.deltaTime;
+            }
+
+            if (fireWeapon)
+            {
+                FireWeapon();
             }
         }
     }
@@ -57,10 +56,14 @@ public class StandardCannon : Weapon
 
     private void FireWeapon()
     {
-        var spawnedObj = Instantiate(bullet, transform.position, rendererTransform.rotation);
-        var spawnedBullet = spawnedObj.GetComponent<Bullet>();
-        this.mainBlock.rigidbody.AddForce(-transform.forward * 10, ForceMode2D.Impulse);
-        spawnedBullet.ownedRootBlock = this.mainBlock.GetRootBlock();
+        while (weaponCooldown > weaponInterval)
+        {
+            weaponCooldown -= weaponInterval;
+            var spawnedObj = Instantiate(bullet, transform.position, rendererTransform.rotation);
+            var spawnedBullet = spawnedObj.GetComponent<Bullet>();
+            this.mainBlock.rigidbody.AddForce(-transform.forward * 10, ForceMode2D.Impulse);
+            spawnedBullet.ownedRootBlock = this.mainBlock.GetRootBlock();
+        }
     }
 
     public override void StartFiringWeapon()

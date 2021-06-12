@@ -37,6 +37,7 @@ public class AiController : MonoBehaviour
             foreach (var mainBlockWeapon in mainBlock.weapons.Values)
             {
                 mainBlockWeapon.target = player.transform.position;
+                mainBlockWeapon.StartFiringWeapon();
             }
         }
     }
