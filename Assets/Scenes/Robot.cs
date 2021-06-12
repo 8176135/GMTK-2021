@@ -29,8 +29,6 @@ public class Robot : MonoBehaviour
     public void Turning(Vector2 targetDirection)
     {
         this.targetDirection = targetDirection;
-       
-        
     }
 
 

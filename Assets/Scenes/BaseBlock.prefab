@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 82946041674254953}
   - component: {fileID: 82946041674254958}
   - component: {fileID: 5977778622179969922}
+  - component: {fileID: -109334933507652232}
   m_Layer: 0
   m_Name: BaseBlock
   m_TagString: Untagged
@@ -149,3 +150,21 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   connectedToShip: 0
+--- !u!255 &-109334933507652232
+FixedJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82946041674254959}
+  m_Enabled: 0
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_DampingRatio: 0
+  m_Frequency: 0
