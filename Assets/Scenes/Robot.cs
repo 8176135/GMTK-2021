@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Robot : MonoBehaviour
@@ -11,8 +12,10 @@ public class Robot : MonoBehaviour
     public Vector2 thrustForce;
     private Vector2 controlDirection;
 
+    public GameObject dummy;
+
     // private PidController pid;
-    
+
     public float robotMaxTorque = 10.0f;
 
     // Start is called before the first frame update
@@ -28,12 +31,9 @@ public class Robot : MonoBehaviour
         var thrusters = mainBlock.thrusters;
 
         var thrusterCount = 0;
-        if (thrusters != null)
-        {
-            thrusterCount = thrusters.Count;
-        }
-        var multiplier = thrusterCount + 1000;
+        thrusterCount = thrusters.Count;
 
+        var multiplier = (thrusterCount + 0.5f) * 500;
         controlDirection = normalisedThrustTarget;
         thrustForce = normalisedThrustTarget * (multiplier);
         
@@ -63,13 +63,17 @@ public class Robot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         var thrusters = mainBlock.thrusters;
         var facingDirection = this.rigidbody2D.transform.up;
-        var difAngle = Vector2.SignedAngle(facingDirection, targetDirection);
-        rigidbody2D.AddTorque(Mathf.Clamp(difAngle * 0.05f, -1.0f, 1.0f) * robotMaxTorque * Time.deltaTime);
-        
-        rigidbody2D.AddForce(thrustForce * Time.deltaTime);
 
+        var position = transform.position;
+        var difAngle = Vector2.SignedAngle(facingDirection, (Vector2) position - targetDirection);
+        var actualTorque = robotMaxTorque + thrusters.Count * 20; 
+        // rigidbody2D.AddTorque(Mathf.Clamp(difAngle * 0.05f, -1.0f, 1.0f) * actualTorque * Time.deltaTime);
+
+        rigidbody2D.AddForceAtPosition(thrustForce * Time.deltaTime, mainBlock.GetCenterOfMass() + (Vector2)position);
+        dummy.transform.SetPositionAndRotation(mainBlock.GetCenterOfMass() + (Vector2)position, Quaternion.identity);
         UpdateThrusters();
     }
 }

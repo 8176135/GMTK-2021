@@ -18,6 +18,9 @@ public class MainBlock : MonoBehaviour
 
     public UnityEvent<MainBlock> connectedToParent;
 
+    public float massSum;
+    public Vector2 calculatedCenterOfMass;
+
     // public float debugThrustValue = 50;
 
     public bool connectedToShip = false;
@@ -27,11 +30,14 @@ public class MainBlock : MonoBehaviour
     {
         parentJoint = this.GetComponent<FixedJoint2D>();
         rigidbody = this.GetComponent<Rigidbody2D>();
+        massSum = rigidbody.mass;
+        calculatedCenterOfMass = rigidbody.centerOfMass;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // transform.SetPositionAndRotation();
     }
 
     public void NewThruster(Thruster newBlock)
@@ -51,7 +57,7 @@ public class MainBlock : MonoBehaviour
             this.parentBlock.NewWeapon(newBlock);
         }
     }
-    
+
     public void RemoveMisc(GameObject newBlock)
     {
         this.thrusters.Remove(newBlock);
@@ -67,6 +73,7 @@ public class MainBlock : MonoBehaviour
         {
             this.parentBlock.connectedObjects.Remove(this);
         }
+
         RemoveMisc(this.gameObject);
     }
 
@@ -77,15 +84,45 @@ public class MainBlock : MonoBehaviour
         parentJoint.connectedBody = this.parentBlock.GetComponent<Rigidbody2D>();
         parentJoint.enabled = true;
         otherBlock.connectedObjects.Add(this);
-
+        otherBlock.massSum = otherBlock.GetMassSum();
+        otherBlock.UpdateCenterOfMass();
         connectedToParent.Invoke(otherBlock);
     }
 
     float GetMassSum()
     {
-        var sum = this.connectedObjects.Aggregate(0.0f, (a, b) => a + b.GetMassSum());
-        return sum + this.rigidbody.mass;
+        return this.connectedObjects.Aggregate(this.rigidbody.mass, (a, b) => a + b.GetMassSum());
     }
+
+    Vector2 UpdateCenterOfMass()
+    {
+        var position = transform.position;
+        var answer = connectedObjects.Aggregate((baseCenterOfMass: (Vector2) position, rigidbody.mass), (a, b) =>
+        {
+            a.baseCenterOfMass += (b.GetCenterOfMass() + (Vector2)b.transform.position) * b.massSum;
+            a.mass += b.massSum;
+            return a;
+            // var (vector2, mass) = a;
+            // var massSum2 = (b.massSum + mass);
+            //
+            // var relativePosition = (Vector2)b.transform.position - vector2;
+            // return (Vector2.Lerp(b.rigidbody.centerOfMass + (Vector2)relativePosition, vector2, mass / massSum2), massSum2);
+        });
+
+        this.calculatedCenterOfMass = ((answer.baseCenterOfMass / answer.mass) - (Vector2) position);
+        if (this.parentBlock != null)
+        {
+            parentBlock.UpdateCenterOfMass();
+        }
+
+        return GetCenterOfMass();
+    }
+
+    public Vector2 GetCenterOfMass()
+    {
+        return Quaternion.AngleAxis(transform.localRotation.eulerAngles.z, Vector3.forward) * calculatedCenterOfMass;
+    }
+
 
     void OnCollisionEnter2D(Collision2D collision)
     {

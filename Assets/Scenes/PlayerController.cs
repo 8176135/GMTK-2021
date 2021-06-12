@@ -32,6 +32,6 @@ public class PlayerController : MonoBehaviour
     {
         var position = context.ReadValue<Vector2>();
         var mainCamPos = mainCam.ScreenToWorldPoint(position);
-        moveCallback.Turning(transform.position - mainCamPos);
+        moveCallback.Turning(mainCamPos);
     }
 }
