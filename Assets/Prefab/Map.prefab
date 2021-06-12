@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 933700041032795390}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 64, y: 1, z: 64}
+  m_LocalScale: {x: 128, y: 1, z: 128}
   m_Children: []
   m_Father: {fileID: 6924954375291955886}
   m_RootOrder: 0
@@ -155,11 +155,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 765cb2616fa8eb44480c955a3fdf78bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapWidth: 64
-  mapHeight: 64
-  noiseScale: 4
+  mapWidth: 128
+  mapHeight: 128
+  noiseScale: 24
   noiseClamp: 0
-  noiseOctaves: 4
+  noiseOctaves: 5
   noisePersistance: 0.5
-  noiseLacunarity: 2
+  noiseLacunarity: 2.91
+  Seed: 0
+  Offset: {x: 0, y: 0}
   autoUpdate: 1

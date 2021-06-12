@@ -35,7 +35,7 @@ public class MapGen : MonoBehaviour
         noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight);
 
         var display = GetComponent<MapDisplay>();
-        display.DrawNoiseMap(noiseMap);
+        display.DrawNoiseMap(noiseMap, noiseClamp);
     }
     
     private void OnValidate()
