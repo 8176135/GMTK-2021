@@ -12,6 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d09c897efbeeca44bf5ac7b2b077f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &2186386074121428477
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4107259971884929834}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: db7606dd70106c74aad1711f321c9998, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &4168439701271025989
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36,12 +55,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 82946041674254953, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 0.49609375
+      objectReference: {fileID: 0}
+    - target: {fileID: 82946041674254953, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.28
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 82946041674254953, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.28
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 82946041674254959, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: m_Name
