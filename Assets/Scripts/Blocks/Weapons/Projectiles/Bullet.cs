@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
         timeToLive -= Time.deltaTime;
         if (timeToLive < 0)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 }

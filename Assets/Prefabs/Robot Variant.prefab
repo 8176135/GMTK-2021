@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498d18d72c45dc84193ad86f3af6b89e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetDirection: {x: 0, y: 0}
-  thrustForce: {x: 0, y: 0}
+  targetPosition: {x: 0, y: 0}
+  turnSpeedPerThruster: 400
+  thrustPowerSpeedPerThruster: 1
   robotMaxTorque: 1
 --- !u!1001 &3039102042413148034
 PrefabInstance:
