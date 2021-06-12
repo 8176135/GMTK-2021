@@ -133,7 +133,6 @@ GameObject:
   - component: {fileID: 768468269354998642}
   - component: {fileID: 6552356539149623668}
   - component: {fileID: 653994837448838941}
-  - component: {fileID: 2735768158294773828}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -176,7 +175,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -197,7 +196,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 43e69b5d7dd38c140b34925fe7ef288c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1de1af72975a41049a4bd01bc463d8b5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -216,7 +215,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4418229402772246247}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: db7606dd70106c74aad1711f321c9998, type: 2}
   m_CullingMode: 0
@@ -227,22 +226,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2735768158294773828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4418229402772246247}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ca12332c564f4f439b741e72cadc76e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thrusterPower: 1
-  maxThrusterPower: 1
-  thrusterRate: 0.0005
-  shouldUpdate: 1
 --- !u!1001 &4168439701271025989
 PrefabInstance:
   m_ObjectHideFlags: 0
