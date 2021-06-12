@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public float initVelocity;
     private new Rigidbody2D rigidbody2D;
+    public MainBlock ownedRootBlock;
 
     public float timeToLive = 10;
     // Start is called before the first frame update

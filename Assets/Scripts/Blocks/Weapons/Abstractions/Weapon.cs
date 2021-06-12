@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
     protected MainBlock mainBlock;
-    void Start()
+    public void Start()
     {
         mainBlock = this.GetComponent<MainBlock>();
         mainBlock.connectedToParent.AddListener(c => c.NewWeapon(this));

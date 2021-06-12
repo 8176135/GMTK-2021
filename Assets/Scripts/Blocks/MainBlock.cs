@@ -40,6 +40,18 @@ public class MainBlock : MonoBehaviour
         // transform.SetPositionAndRotation();
     }
 
+    public MainBlock GetRootBlock()
+    {
+        if (this.parentBlock)
+        {
+            return this.parentBlock.GetRootBlock();
+        }
+        else
+        {
+            return this;
+        }
+    }
+    
     public void NewThruster(Thruster newBlock)
     {
         this.thrusters.Add(newBlock.gameObject, newBlock);
@@ -141,8 +153,10 @@ public class MainBlock : MonoBehaviour
         else
         {
             var bullet = collision.gameObject.GetComponent<Bullet>();
-            if (bullet != null)
+            if (bullet != null && bullet.ownedRootBlock != this.GetRootBlock())
             {
+                Debug.Log(bullet.ownedRootBlock);
+                Debug.Log(GetRootBlock());
                 RemoveFromParent();
                 Destroy(gameObject);
                 Destroy(bullet.gameObject);

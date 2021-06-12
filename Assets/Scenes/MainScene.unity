@@ -306,11 +306,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &1003671859 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 846218353541718044, guid: 5397b3903bb805c459b5f5c20c4312e9, type: 3}
-  m_PrefabInstance: {fileID: 763626113705107598}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1464662751
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,24 +415,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &763626113705107598
+--- !u!1001 &1490836138
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1003671864, guid: 5397b3903bb805c459b5f5c20c4312e9, type: 3}
-      propertyPath: spawnSpeed
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1003671864, guid: 5397b3903bb805c459b5f5c20c4312e9, type: 3}
-      propertyPath: combineForce
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 846218353541718045, guid: 5397b3903bb805c459b5f5c20c4312e9, type: 3}
       propertyPath: m_Name
-      value: AI example
+      value: AI example Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4517387672243314337, guid: 5397b3903bb805c459b5f5c20c4312e9, type: 3}
       propertyPath: m_RootOrder
@@ -445,11 +432,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4517387672243314337, guid: 5397b3903bb805c459b5f5c20c4312e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.23
+      value: 3.6895394
       objectReference: {fileID: 0}
     - target: {fileID: 4517387672243314337, guid: 5397b3903bb805c459b5f5c20c4312e9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.03
+      value: 0.80946195
       objectReference: {fileID: 0}
     - target: {fileID: 4517387672243314337, guid: 5397b3903bb805c459b5f5c20c4312e9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -543,7 +530,7 @@ PrefabInstance:
     - target: {fileID: 8389865495473161687, guid: 37860cef34c4803489fbd25d05aecdb0, type: 3}
       propertyPath: m_ConnectedRigidBody
       value: 
-      objectReference: {fileID: 1003671859}
+      objectReference: {fileID: 0}
     - target: {fileID: 8389865495473161688, guid: 37860cef34c4803489fbd25d05aecdb0, type: 3}
       propertyPath: mainCam
       value: 

@@ -151,6 +151,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   massSum: 0
+  calculatedCenterOfMass: {x: 0, y: 0}
   connectedToShip: 0
 --- !u!255 &-109334933507652232
 FixedJoint2D:
@@ -178,7 +179,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 82946041674254959}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: c29fcb0042a9b204cbcc38f734e79cf5, type: 2}
   m_CullingMode: 0
