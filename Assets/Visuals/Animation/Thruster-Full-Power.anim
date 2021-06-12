@@ -22,7 +22,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.6
+        value: 1.0410553
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -58,7 +58,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.6666667
-        value: 1.2474097
+        value: 1.0410612
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -70,6 +70,44 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: m_Intensity
     path: Light 2D
+    classID: 114
+    script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.8
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_Intensity
+    path: Left Thruster Light
+    classID: 114
+    script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.8
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_Intensity
+    path: Right Thruster Light
     classID: 114
     script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_PPtrCurves:
@@ -109,6 +147,20 @@ AnimationClip:
       typeID: 212
       customType: 23
       isPPtrCurve: 1
+    - serializedVersion: 2
+      path: 913331129
+      attribute: 898800009
+      script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+      typeID: 114
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 2695042143
+      attribute: 898800009
+      script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+      typeID: 114
+      customType: 0
+      isPPtrCurve: 0
     pptrCurveMapping:
     - {fileID: -2104635884058795182, guid: f80efd10b1ddb7d4f9f659f25ae093c7, type: 3}
     - {fileID: 4438847483147219781, guid: f80efd10b1ddb7d4f9f659f25ae093c7, type: 3}
@@ -141,7 +193,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.6
+        value: 1.0410553
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -177,7 +229,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.6666667
-        value: 1.2474097
+        value: 1.0410612
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -189,6 +241,44 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: m_Intensity
     path: Light 2D
+    classID: 114
+    script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.8
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_Intensity
+    path: Left Thruster Light
+    classID: 114
+    script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.8
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_Intensity
+    path: Right Thruster Light
     classID: 114
     script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_EulerEditorCurves: []

@@ -38,13 +38,21 @@ public class Robot : MonoBehaviour
     /// <summary>
     /// Callback function for when a player/AI wishes to fire a weapon.
     /// </summary>
-    public void Fire()
+    /// <param name="pressed">True if this is a press action. False if this is release action.</param>
+    public void Fire(bool pressed)
     {
         var weapons = mainBlock.weapons;
 
         foreach (var weapon in weapons)
         {
-            weapon.Value.StartFiringWeapon();
+            if (pressed)
+            {
+                weapon.Value.StartFiringWeapon();
+            }
+            else
+            {
+                weapon.Value.StopFiringWeapon();
+            }
         }
     }
 

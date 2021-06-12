@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
 
     public void Fire(InputAction.CallbackContext context)
     {
-        _playerCallback.Fire();
+        var pressed = context.ReadValueAsButton();
+        _playerCallback.Fire(pressed);
     }
 }

@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class StandardCannon : Weapon
 {
-    public float spawnInterval = 10;
-    public float spawnCooldown = 0;
+    public float weaponInterval = 10;
+    public float weaponCooldown = 0;
     public bool fireWeapon = false;
 
     public GameObject bullet;
@@ -13,16 +13,15 @@ public class StandardCannon : Weapon
     // Update is called once per frame
     void Update()
     {
-        if (spawnCooldown < spawnInterval)
+        if (weaponCooldown < weaponInterval)
         {
-            spawnCooldown += Time.deltaTime;
-            if (spawnCooldown > spawnInterval)
-            {
-                FireWeapon();
-                spawnCooldown = 0;
-            }
+            weaponCooldown += Time.deltaTime;
         }
-        
+
+        if (fireWeapon)
+        {
+            FireWeapon();
+        }
     }
 
     private Transform GetClosestEnemy(Transform[] enemies)
@@ -46,7 +45,11 @@ public class StandardCannon : Weapon
 
     private void FireWeapon()
     {
-        Instantiate(bullet, transform.position, rendererTransform.rotation);
+        if (weaponCooldown > weaponInterval)
+        {
+            Instantiate(bullet, transform.position, rendererTransform.rotation);
+            weaponCooldown = 0;
+        }
     }
 
     public override void StartFiringWeapon()
