@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 0}
-  playerCallback: {fileID: 0}
 --- !u!114 &8389865495473161689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,10 +143,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498d18d72c45dc84193ad86f3af6b89e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetDirection: {x: 0, y: 0}
-  dummy: {fileID: 0}
+  targetPosition: {x: 0, y: 0}
   turnSpeedPerThruster: 400
-  thrustPowerSpeedPerThruster: 1
+  thrustPowerSpeedPerThruster: 1.5
   robotMaxTorque: 100
 --- !u!1001 &4344910655510857841
 PrefabInstance:
@@ -163,14 +161,6 @@ PrefabInstance:
     - target: {fileID: -109334933507652232, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: -1.72
-      objectReference: {fileID: 0}
-    - target: {fileID: 82946041674254958, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
-      propertyPath: m_LinearDrag
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 82946041674254958, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
-      propertyPath: m_AngularDrag
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 82946041674254959, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: m_Name
@@ -219,6 +209,10 @@ PrefabInstance:
     - target: {fileID: 3758269011419952339, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4792256869287860565, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5977778622179969922, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: connectedToShip

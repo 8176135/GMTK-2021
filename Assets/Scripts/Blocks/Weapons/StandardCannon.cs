@@ -10,6 +10,10 @@ public class StandardCannon : Weapon
     public GameObject bullet;
     public Transform rendererTransform;
 
+    void Start()
+    {
+        base.Start();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -29,17 +33,17 @@ public class StandardCannon : Weapon
         Transform closestTarget = null;
         Vector3 currentPosition = transform.position;
         float closestDistance = Mathf.Infinity;
-        foreach(Transform potentialTarget in enemies)
+        foreach (Transform potentialTarget in enemies)
         {
             Vector3 directionToTarget = potentialTarget.position - currentPosition;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
-            if(dSqrToTarget < closestDistance)
+            if (dSqrToTarget < closestDistance)
             {
                 closestDistance = dSqrToTarget;
                 closestTarget = potentialTarget;
             }
         }
-        
+
         return closestTarget;
     }
 
@@ -47,7 +51,11 @@ public class StandardCannon : Weapon
     {
         if (weaponCooldown > weaponInterval)
         {
-            Instantiate(bullet, transform.position, rendererTransform.rotation);
+            var spawnedObj = Instantiate(bullet, transform.position, rendererTransform.rotation);
+            var spawnedBullet = spawnedObj.GetComponent<Bullet>();
+            Debug.Log(spawnedBullet);
+            spawnedBullet.ownedRootBlock = this.mainBlock.GetRootBlock();
+            
             weaponCooldown = 0;
         }
     }
@@ -66,7 +74,8 @@ public class StandardCannon : Weapon
     {
         if (!rendererTransform) return;
 
-        var rotation = Vector2.SignedAngle(Vector2.up, target - new Vector2(transform.position.x, transform.position.y));
-        rendererTransform.rotation = Quaternion.Euler(0,0,rotation);
+        var position = transform.position;
+        var rotation = Vector2.SignedAngle(Vector2.up, target - new Vector2(position.x, position.y));
+        rendererTransform.rotation = Quaternion.Euler(0, 0, rotation);
     }
 }
