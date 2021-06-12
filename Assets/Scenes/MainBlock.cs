@@ -77,5 +77,15 @@ public class MainBlock : MonoBehaviour
             {
             }
         }
+        else
+        {
+            var bullet = collision.gameObject.GetComponent<Bullet>();
+            if (bullet != null)
+            {
+                
+                Destroy(this);
+                
+            }
+        }
     }
 }

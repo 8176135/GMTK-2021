@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AssetsPPU: 128
+  m_AssetsPPU: 61
   m_RefResolutionX: 620
   m_RefResolutionY: 360
   m_UpscaleRT: 0
@@ -197,7 +197,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3
+  orthographic size: 3.13
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -388,6 +388,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 82946041674254958, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
+      propertyPath: m_LinearDrag
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 82946041674254958, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
+      propertyPath: m_AngularDrag
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 82946041674254959, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: m_Name
       value: BaseBlock
@@ -398,11 +406,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3758269011419952339, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.2
+      value: 2.05
       objectReference: {fileID: 0}
     - target: {fileID: 3758269011419952339, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.78
+      value: -1.06
       objectReference: {fileID: 0}
     - target: {fileID: 3758269011419952339, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: m_LocalPosition.z
@@ -481,6 +489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbf423aff62817d7b13fce90a0dbbbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCam: {fileID: 519420031}
   moveCallback: {fileID: 8389865495473161695}
 --- !u!114 &8389865495473161689
 MonoBehaviour:
@@ -600,4 +609,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498d18d72c45dc84193ad86f3af6b89e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetDirection: {x: 0, y: 0}
   robotMaxTorque: 100

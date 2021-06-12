@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
 
+    public Camera mainCam;
     public Robot moveCallback;
     
     // Start is called before the first frame update
@@ -29,7 +30,8 @@ public class PlayerController : MonoBehaviour
 
     public void TurnPlayer(InputAction.CallbackContext context)
     {
-        var direction = context.ReadValue<Vector2>();
-        // moveCallback.Turning(direction);
+        var position = context.ReadValue<Vector2>();
+        var mainCamPos = mainCam.ScreenToWorldPoint(position);
+        moveCallback.Turning(transform.position - mainCamPos);
     }
 }

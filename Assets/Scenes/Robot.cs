@@ -7,10 +7,11 @@ public class Robot : MonoBehaviour
 {
     private MainBlock mainBlock;
     private Rigidbody2D rigidbody2D;
+    public Vector2 targetDirection;
 
     // private PidController pid;
     
-    public float robotMaxTorque = 100.0f;
+    public float robotMaxTorque = 10.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -27,11 +28,8 @@ public class Robot : MonoBehaviour
 
     public void Turning(Vector2 targetDirection)
     {
-        var thrusters = mainBlock.thrusters;
-        var facingDirection = this.rigidbody2D.transform.up;
-        var difAngle = Vector2.SignedAngle(facingDirection, targetDirection);
-        Debug.Log(difAngle);
-        rigidbody2D.AddTorque(Mathf.Clamp(difAngle * 0.05f, -1.0f, 1.0f) * robotMaxTorque * Time.deltaTime);
+        this.targetDirection = targetDirection;
+       
         
     }
 
@@ -39,6 +37,11 @@ public class Robot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Turning(Vector2.left);
+        var thrusters = mainBlock.thrusters;
+        var facingDirection = this.rigidbody2D.transform.up;
+        var difAngle = Vector2.SignedAngle(facingDirection, targetDirection);
+        rigidbody2D.AddTorque(Mathf.Clamp(difAngle * 0.05f, -1.0f, 1.0f) * robotMaxTorque * Time.deltaTime);
+        
+        // Turning(Vector2.left);
     }
 }
