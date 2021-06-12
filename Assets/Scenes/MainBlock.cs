@@ -33,7 +33,7 @@ public class MainBlock : MonoBehaviour
     {
     }
 
-    void NewThruster(Thruster newBlock)
+    public void NewThruster(Thruster newBlock)
     {
         this.thrusters.Add(newBlock.gameObject, newBlock);
         this.parentBlock.NewThruster(newBlock);
