@@ -6,6 +6,8 @@ public class Bullet : MonoBehaviour
 {
     public float initVelocity;
     private new Rigidbody2D rigidbody2D;
+
+    public float timeToLive = 300;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +18,11 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // Expiration time on bullet
+        timeToLive -= Time.deltaTime;
+        if (timeToLive < 0)
+        {
+            Destroy(this);
+        }
     }
 }
