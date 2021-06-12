@@ -7,18 +7,32 @@ public class AiController : MonoBehaviour
     private int counter = 0;
     public int numberOfParts = 15;
     public float spawnSpeed = 0.15f;
+    public float combineForce = 1.5f;
 
     public GameObject[] partsList;
+
+    public GameObject player;
+
+    public Robot robot;
+
+    public float awarenessRadius = 100.0f;
 
     // Start is called before the first frame update
     void Start()
     {
         InvokeRepeating(nameof(SpawnSequence), spawnSpeed, spawnSpeed);
+        player = GameObject.FindObjectOfType<PlayerController>().gameObject;
+        robot = GetComponent<Robot>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        var posDiff = player.transform.position - transform.position;
+        if (posDiff.magnitude < awarenessRadius)
+        {
+            robot.Thrust(posDiff.normalized);
+        }
     }
 
     void SpawnSequence()
@@ -37,10 +51,10 @@ public class AiController : MonoBehaviour
         var a = Instantiate(partsList[idx],
             offset + (Vector2) this.transform.position,
             Quaternion.Euler(0.0f, 0.0f, Random.Range(0, 360)));
-        
+
         // Debug.DrawLine((Vector2) this.transform.position, (Random.insideUnitCircle.normalized * 2) + (Vector2) this.transform.position, Color.red, 100.0f);
 
-        a.GetComponent<Rigidbody2D>().AddForce(-offset * 0, ForceMode2D.Impulse);
+        a.GetComponent<Rigidbody2D>().AddForce(-offset * combineForce, ForceMode2D.Impulse);
 
         counter++;
     }
