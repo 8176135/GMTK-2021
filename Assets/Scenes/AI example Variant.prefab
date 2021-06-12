@@ -26,8 +26,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c619c371d68ea4fb966a6e0b186a2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfParts: 10
-  spawnSpeed: 0.25
+  numberOfParts: 15
+  spawnSpeed: 0.15
   partsList:
   - {fileID: 4505883300934065445, guid: bf114a0eaf87dcd4398280866111d45c, type: 3}
   - {fileID: 4107259971884929834, guid: cd2f028596fad0b44bc0f49b938c9a63, type: 3}

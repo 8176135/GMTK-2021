@@ -13,8 +13,8 @@ public class MainBlock : MonoBehaviour
     private FixedJoint2D parentJoint;
     private Rigidbody2D rigidbody;
 
-    public Dictionary<GameObject, Thruster> thrusters;
-    public Dictionary<GameObject, Weapon> weapons;
+    public Dictionary<GameObject, Thruster> thrusters = new Dictionary<GameObject, Thruster>();
+    public Dictionary<GameObject, Weapon> weapons = new Dictionary<GameObject, Weapon>();
 
     public UnityEvent<MainBlock> connectedToParent;
 

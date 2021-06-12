@@ -5,8 +5,8 @@ using UnityEngine;
 public class AiController : MonoBehaviour
 {
     private int counter = 0;
-    public int numberOfParts = 10;
-    public float spawnSpeed = 0.25f;
+    public int numberOfParts = 15;
+    public float spawnSpeed = 0.15f;
 
     public GameObject[] partsList;
 
@@ -31,7 +31,7 @@ public class AiController : MonoBehaviour
 
         var idx = Random.Range(0, partsList.Length);
 
-        var offset = (Random.insideUnitCircle.normalized * (2 + counter * 0.25f));
+        var offset = (Random.insideUnitCircle.normalized * (1 + counter * 0.1f));
 
         var a = Instantiate(partsList[idx],
             offset + (Vector2) this.transform.position,
