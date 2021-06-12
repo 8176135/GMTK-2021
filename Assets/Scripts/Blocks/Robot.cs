@@ -111,6 +111,13 @@ public class Robot : MonoBehaviour
         rigidbody2D.AddForce(controlDirection * 0.5f);
         
         UpdateThrusters();
+    }
 
+    public void SetAimTarget(Vector2 aimPos)
+    {
+        foreach (var mainBlockWeapon in mainBlock.weapons.Values)
+        {
+            mainBlockWeapon.target = aimPos;
+        }
     }
 }

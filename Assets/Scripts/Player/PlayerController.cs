@@ -8,27 +8,28 @@ public class PlayerController : MonoBehaviour
 {
 
     public Camera mainCam;
-    private Robot _playerCallback;
+    private Robot robot;
 
     private Vector2 _playerAimPos = Vector2.zero;
     
     // Start is called before the first frame update
     void Start()
     {
-        _playerCallback = GetComponent<Robot>();
+        robot = GetComponent<Robot>();
     }
 
     // Update is called once per frame
     void Update()
     {
         var mainCamPos = mainCam.ScreenToWorldPoint(_playerAimPos);
-        _playerCallback.Turning(mainCamPos);
+        robot.Turning(mainCamPos);
+        robot.SetAimTarget(mainCamPos);
     }
 
     public void MovePlayer(InputAction.CallbackContext context)
     {
         var direction = context.ReadValue<Vector2>();
-        _playerCallback.Thrust(direction);
+        robot.Thrust(direction);
     }
 
     public void TurnPlayer(InputAction.CallbackContext context)
@@ -39,6 +40,6 @@ public class PlayerController : MonoBehaviour
     public void Fire(InputAction.CallbackContext context)
     {
         var pressed = context.ReadValueAsButton();
-        _playerCallback.Fire(pressed);
+        robot.Fire(pressed);
     }
 }

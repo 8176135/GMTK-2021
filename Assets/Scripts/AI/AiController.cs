@@ -34,11 +34,8 @@ public class AiController : MonoBehaviour
         if (posDiff.magnitude < awarenessRadius && counter > numberOfParts)
         {
             robot.Thrust(posDiff.normalized);
-            foreach (var mainBlockWeapon in mainBlock.weapons.Values)
-            {
-                mainBlockWeapon.target = player.transform.position;
-                mainBlockWeapon.StartFiringWeapon();
-            }
+            robot.Fire(true);
+            robot.SetAimTarget(player.transform.position);
         }
     }
 
