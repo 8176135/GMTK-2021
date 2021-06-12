@@ -12,6 +12,8 @@ public class World : MonoBehaviour
     [Header("WorldSeed")]
     public bool useRandomSeed;
     public int seed;
+
+    public bool autoUpdate;
     
     
     // Start is called before the first frame update
