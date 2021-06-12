@@ -9,7 +9,6 @@ public class Robot : MonoBehaviour
     private new Rigidbody2D rigidbody2D;
     public Vector2 targetDirection;
     public Vector2 thrustForce;
-    private Vector2 thrustForce;
 
     // private PidController pid;
     
