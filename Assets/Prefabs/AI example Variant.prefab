@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetDirection: {x: 0, y: 0}
-  thrustForce: {x: 0, y: 0}
+  dummy: {fileID: 0}
+  turnSpeedPerThruster: 400
+  thrustPowerSpeedPerThruster: 1
   robotMaxTorque: 10
 --- !u!114 &1003671864
 MonoBehaviour:
@@ -28,10 +30,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfParts: 15
-  spawnSpeed: 0.15
+  spawnSpeed: 0.1
+  combineForce: 2
   partsList:
   - {fileID: 4505883300934065445, guid: bf114a0eaf87dcd4398280866111d45c, type: 3}
   - {fileID: 4107259971884929834, guid: cd2f028596fad0b44bc0f49b938c9a63, type: 3}
+  player: {fileID: 0}
+  robot: {fileID: 0}
+  awarenessRadius: 100
 --- !u!1001 &763626114110319218
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61,7 +67,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 82946041674254959, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: m_Name
-      value: AI example Variant
+      value: AI example
       objectReference: {fileID: 0}
     - target: {fileID: 2814830011463430344, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: m_Color.b
