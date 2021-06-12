@@ -6,7 +6,7 @@ using UnityEngine;
 public class Robot : MonoBehaviour
 {
     private MainBlock mainBlock;
-    private Rigidbody2D rigidbody2D;
+    private new Rigidbody2D rigidbody2D;
     public Vector2 targetDirection;
     public Vector2 thrustForce;
     private Vector2 thrustForce;

@@ -8,10 +8,10 @@ using UnityEngine.Events;
 
 public class MainBlock : MonoBehaviour
 {
-    private List<MainBlock> connectedObjects = new List<MainBlock>();
+    private HashSet<MainBlock> connectedObjects = new HashSet<MainBlock>();
     private MainBlock parentBlock;
     private FixedJoint2D parentJoint;
-    private Rigidbody2D rigidbody;
+    private new Rigidbody2D rigidbody;
 
     public Dictionary<GameObject, Thruster> thrusters = new Dictionary<GameObject, Thruster>();
     public Dictionary<GameObject, Weapon> weapons = new Dictionary<GameObject, Weapon>();
@@ -37,13 +37,37 @@ public class MainBlock : MonoBehaviour
     public void NewThruster(Thruster newBlock)
     {
         this.thrusters.Add(newBlock.gameObject, newBlock);
-        this.parentBlock.NewThruster(newBlock);
+        if (this.parentBlock != false)
+        {
+            this.parentBlock.NewThruster(newBlock);
+        }
     }
-    
+
     public void NewWeapon(Weapon newBlock)
     {
         this.weapons.Add(newBlock.gameObject, newBlock);
-        this.parentBlock.NewWeapon(newBlock);
+        if (this.parentBlock != false)
+        {
+            this.parentBlock.NewWeapon(newBlock);
+        }
+    }
+    
+    public void RemoveMisc(GameObject newBlock)
+    {
+        this.thrusters.Remove(newBlock);
+        if (this.parentBlock != false)
+        {
+            this.parentBlock.RemoveMisc(newBlock);
+        }
+    }
+
+    void RemoveFromParent()
+    {
+        if (this.parentBlock != false)
+        {
+            this.parentBlock.connectedObjects.Remove(this);
+        }
+        RemoveMisc(this.gameObject);
     }
 
     void ConnectToShip(MainBlock otherBlock)
@@ -82,9 +106,10 @@ public class MainBlock : MonoBehaviour
             var bullet = collision.gameObject.GetComponent<Bullet>();
             if (bullet != null)
             {
-                
-                Destroy(this);
-                
+                RemoveFromParent();
+                Destroy(gameObject);
+                Destroy(bullet.gameObject);
+                // TODO: spawn explosion
             }
         }
     }
