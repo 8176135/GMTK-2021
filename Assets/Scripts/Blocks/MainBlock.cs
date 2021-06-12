@@ -11,7 +11,7 @@ public class MainBlock : MonoBehaviour
     public HashSet<MainBlock> connectedObjects = new HashSet<MainBlock>();
     private MainBlock parentBlock;
     private FixedJoint2D parentJoint;
-    private new Rigidbody2D rigidbody;
+    public new Rigidbody2D rigidbody;
 
     public Dictionary<GameObject, Thruster> thrusters = new Dictionary<GameObject, Thruster>();
     public Dictionary<GameObject, Weapon> weapons = new Dictionary<GameObject, Weapon>();

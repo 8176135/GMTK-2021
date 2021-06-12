@@ -14,6 +14,7 @@ public class AiController : MonoBehaviour
     public GameObject player;
 
     public Robot robot;
+    public MainBlock mainBlock;
 
     public float awarenessRadius = 100.0f;
 
@@ -23,15 +24,20 @@ public class AiController : MonoBehaviour
         InvokeRepeating(nameof(SpawnSequence), spawnSpeed, spawnSpeed);
         player = GameObject.FindObjectOfType<PlayerController>().gameObject;
         robot = GetComponent<Robot>();
+        mainBlock = GetComponent<MainBlock>();
     }
 
     // Update is called once per frame
     void Update()
     {
         var posDiff = player.transform.position - transform.position;
-        if (posDiff.magnitude < awarenessRadius)
+        if (posDiff.magnitude < awarenessRadius && counter > numberOfParts)
         {
             robot.Thrust(posDiff.normalized);
+            foreach (var mainBlockWeapon in mainBlock.weapons.Values)
+            {
+                mainBlockWeapon.target = player.transform.position;
+            }
         }
     }
 

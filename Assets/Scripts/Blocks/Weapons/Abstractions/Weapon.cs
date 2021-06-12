@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
     protected MainBlock mainBlock;
+    public Vector3? target = null;
+    
     public void Start()
     {
         mainBlock = this.GetComponent<MainBlock>();
