@@ -32,7 +32,7 @@ MonoBehaviour:
   spawnSpeed: 0.1
   combineForce: 0
   partsList:
-  - {fileID: 4505883300934065445, guid: bf114a0eaf87dcd4398280866111d45c, type: 3}
+  - {fileID: 82946041674254959, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
   - {fileID: 4107259971884929834, guid: cd2f028596fad0b44bc0f49b938c9a63, type: 3}
   - {fileID: 4107259971884929834, guid: 7357d07abad85c554ac7080153c772a0, type: 3}
   player: {fileID: 0}

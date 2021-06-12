@@ -109,7 +109,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!114 &3225128205950485776
+--- !u!114 &-6082454664043623447
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,12 +118,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4107259971884929834}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7bb94999cf0d50d6896ac9d15a5ce0e, type: 3}
+  m_Script: {fileID: 11500000, guid: a3303d05b9f84d768596d9714cac1d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnInterval: 2
+  spawnInterval: 1
   spawnCooldown: 0
-  fireWeapon: 1
+  fireWeapon: 0
   bullet: {fileID: 54778591206982149, guid: 86cd3579a6cc8486194beecb000fec56, type: 3}
   rendererTransform: {fileID: 768468269354998642}
 --- !u!1 &4418229402772246247
@@ -271,7 +271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 82946041674254959, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: m_Name
-      value: Turret Variant
+      value: Standard Cannon Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2814830011463430344, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: m_Sprite
