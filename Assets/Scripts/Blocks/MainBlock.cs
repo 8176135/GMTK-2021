@@ -118,7 +118,7 @@ public class MainBlock : MonoBehaviour
             connectedObject.RemoveFromParent();
         }
 
-        if (this.parentBlock && !this.parentBlock.IsDestroyed())
+        if (this.parentBlock && !this.parentBlock.IsDestroyed() && !this.gameObject.IsDestroyed())
         {
             this.parentBlock.RemoveMisc(this.gameObject);
 
