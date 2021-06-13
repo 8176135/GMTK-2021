@@ -125,7 +125,7 @@ public class Robot : MonoBehaviour
 
         redundentObjs.Clear();
 
-        rigidbody2D.AddForce(controlDirection * 0.5f);
+        rigidbody2D.AddForce(controlDirection * 1f);
         
         UpdateThrusters();
     }

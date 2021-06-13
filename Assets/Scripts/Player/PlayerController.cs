@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         robot = GetComponent<Robot>();
         docs = FindObjectOfType<UIDocument>();
-        // scoreLabel = docs.rootVisualElement.Q<Label>("ScoreVal");
+        scoreLabel = docs.rootVisualElement.Q<Label>("ScoreVal");
     }
 
     // Update is called once per frame
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
         var mainCamPos = mainCam.ScreenToWorldPoint(_playerAimPos);
         robot.Turning(mainCamPos);
         robot.SetAimTarget(mainCamPos);
-        // scoreLabel.text = robot.mainBlock.BlockCount.ToString();
+        scoreLabel.text = robot.mainBlock.BlockCount.ToString();
     }
 
     public void MovePlayer(InputAction.CallbackContext context)

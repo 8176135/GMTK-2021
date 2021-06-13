@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -31,10 +32,11 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         var otherBullet = other.GetComponent<Bullet>();
-        if (otherBullet != null && otherBullet.ownedRootBlock != ownedRootBlock)
+
+        if (otherBullet != null && otherBullet.ownedRootBlock && ownedRootBlock && otherBullet.ownedRootBlock != ownedRootBlock)
         {
             Destroy(this.gameObject);
-            Destroy(otherBullet.gameObject);
+            Destroy(other.gameObject);
         }
     }
 }
