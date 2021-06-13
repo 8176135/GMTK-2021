@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class World : MonoBehaviour
 {
@@ -34,6 +33,8 @@ public class World : MonoBehaviour
     public int maxPasses = 1;
     
     private Rect[] allRects = new Rect[0];
+    private float[,] noiseMap;
+    private bool[][] perlinMap;
     
     
     // Start is called before the first frame update
@@ -50,6 +51,9 @@ public class World : MonoBehaviour
         }
         
         Random.InitState(seed);
+
+        Noise.Seed = seed;
+        noiseMap = Noise.GenerateNoiseMap(size, size);
 
         allRects = new Rect[0];
         CleanTerrain();
@@ -92,8 +96,6 @@ public class World : MonoBehaviour
         for (int i = 1; i < maxPasses + 1; i++)
         {
             // var scale = Mathf.Lerp(((float) size / 10) - i,  1f, (float) i / (maxPasses + 1));
-            var scale = Random.Range(1, 10);
-            var halfScale = scale / 2;
 
             var fails = 0;
             var success = 0;
@@ -102,6 +104,16 @@ public class World : MonoBehaviour
             {
                 var x = Random.Range(-halfSize, halfSize);
                 var y = Random.Range(-halfSize, halfSize);
+
+                var perlinValue = noiseMap[(int) (x + halfSize), (int) (y + halfSize)];
+                if (perlinValue < 0.2f)
+                {
+                    fails++;
+                    continue;
+                }
+
+                var scale = Mathf.Lerp(1, 10, perlinValue);
+                var halfScale = scale / 2;
 
                 var thisRect = new Rect(x - halfScale, y - halfScale, scale, scale);
 
@@ -172,6 +184,13 @@ public class World : MonoBehaviour
                 {
                     var x = Random.Range(-halfSize, halfSize);
                     var y = Random.Range(-halfSize, halfSize);
+                    
+                    var perlinValue = noiseMap[(int) (x + halfSize), (int) (y + halfSize)];
+                    if (perlinValue < 0.2f)
+                    {
+                        fails++;
+                        continue;
+                    }
 
                     var thisRect = new Rect(x - halfScale, y - halfScale, 1, 1);
 
