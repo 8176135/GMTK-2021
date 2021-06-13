@@ -13,9 +13,6 @@ public class World : MonoBehaviour
     [Header("Obstacle ref")]
     public GameObject obstacle;
     
-    [Header("BG Ref")]
-    public BackgroundTiler background;
-    
     [Header("World Limits")]
     public int size = 2048;
     public float wallWidth = 64f;
@@ -34,7 +31,7 @@ public class World : MonoBehaviour
 
     private GameObject[] obstacles;
     private GameObject[] blocks;
-    private Rect[] allRects;
+    private Rect[] allRects = new Rect[0];
     
     
     // Start is called before the first frame update
@@ -65,13 +62,13 @@ public class World : MonoBehaviour
 
         // This is meant to prevent the obstacles from being placed in the wall
         // But I've run out of patience to fix it atm
-        allRects = new[]
-        {
-            new Rect(-halfSize, halfSize + halfWallWidth, size, wallWidth),
-            new Rect(-halfSize, -(halfSize + halfWallWidth), size, wallWidth),
-            new Rect(-(halfSize + halfWallWidth), halfSize, wallWidth, size),
-            new Rect(halfSize + halfWallWidth, halfSize, wallWidth, size)
-        };
+        // allRects = new[]
+        // {
+        //     new Rect(-halfSize, halfSize + halfWallWidth, size, wallWidth),
+        //     new Rect(-halfSize, -(halfSize + halfWallWidth), size, wallWidth),
+        //     new Rect(-(halfSize + halfWallWidth), halfSize, wallWidth, size),
+        //     new Rect(halfSize + halfWallWidth, halfSize, wallWidth, size)
+        // };
 
         wallNorth.localScale = new Vector3(size + (wallWidth * 2), wallWidth, 1f);
         wallSouth.localScale = new Vector3(size + (wallWidth * 2), wallWidth, 1f);
