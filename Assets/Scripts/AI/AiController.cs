@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -14,19 +15,31 @@ public class AiController : MonoBehaviour
 
     public GameObject[] partsList;
 
-    public GameObject player;
+    public PlayerController player;
 
     public Robot robot;
     public MainBlock mainBlock;
 
     public float awarenessRadius = 100.0f;
+    public float searchRadius = 50.0f;
+
+    public MainBlock currentNearbyLooseBlock;
+    public bool hasNearbyLooseBlock = false;
+
+    public bool NotFromSpawner = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindObjectOfType<PlayerController>().gameObject;
+        player = GameObject.FindObjectOfType<PlayerController>();
         robot = GetComponent<Robot>();
         mainBlock = GetComponent<MainBlock>();
+        InvokeRepeating(nameof(FindNearbyLoosePart), 1.0f, 1.0f);
+        if (NotFromSpawner)
+        {
+            StartSpawnSequence(1);
+        }
+        
     }
 
     // Update is called once per frame
@@ -34,15 +47,48 @@ public class AiController : MonoBehaviour
     {
         if (!player.IsDestroyed())
         {
+            var blockDiff = this.mainBlock.BlockCount - player.robot.mainBlock.BlockCount;
             var posDiff = player.transform.position - transform.position;
-            if (posDiff.magnitude < awarenessRadius && counter > numberOfParts)
+            if (posDiff.magnitude < awarenessRadius && counter >= numberOfParts)
             {
-                robot.Thrust(posDiff.normalized);
+                if (blockDiff < -1) // Has less blocks than player
+                {
+                    if (hasNearbyLooseBlock && !currentNearbyLooseBlock.IsDestroyed() &&
+                        !currentNearbyLooseBlock.connectedToShip)
+                    {
+                        var posDiff2 = currentNearbyLooseBlock.transform.position - transform.position;
+                        robot.Thrust(posDiff2.normalized);
+                    }
+                }
+                else // Has more blocks than player
+                {
+                    if (posDiff.magnitude > 3.0)
+                    {
+                        robot.Thrust(posDiff.normalized);
+                    }
+                    else if (posDiff.magnitude < 0.5f)
+                    {
+                        robot.Thrust(-posDiff.normalized);
+                    }
+                }
+
                 robot.Fire(true);
                 robot.SetAimTarget(player.transform.position);
             }
         }
+    }
 
+    void FindNearbyLoosePart()
+    {
+        var results = Physics2D.CircleCastAll(transform.position, searchRadius, Vector2.up);
+        // Debug.Log(results);
+        var others = results
+            .OrderBy(c => c.distance)
+            .Select(c => c.rigidbody.GetComponent<MainBlock>())
+            .FirstOrDefault(c => !c.connectedToShip);
+        hasNearbyLooseBlock = others != null;
+
+        this.currentNearbyLooseBlock = others;
     }
 
     public void StartSpawnSequence(int numberOfParts)
@@ -53,7 +99,7 @@ public class AiController : MonoBehaviour
 
     void SpawnSequence()
     {
-        if (counter > numberOfParts)
+        if (counter >= numberOfParts)
         {
             CancelInvoke(nameof(SpawnSequence));
             this.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;

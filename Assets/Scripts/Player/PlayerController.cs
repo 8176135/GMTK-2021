@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 {
 
     public Camera mainCam;
-    private Robot robot;
+    public Robot robot;
 
     public UIDocument docs;
     public Label scoreLabel;
