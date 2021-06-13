@@ -1,5 +1,6 @@
 ﻿using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class StandardCannon : Weapon
 {
@@ -63,6 +64,7 @@ public class StandardCannon : Weapon
             weaponCooldown = 0;
             var spawnedObj = Instantiate(bullet, transform.position, rendererTransform.rotation);
             var spawnedBullet = spawnedObj.GetComponent<Bullet>();
+            Assert.IsNotNull(spawnedBullet);
             this.mainBlock.rigidbody.AddForce(-transform.forward * 10, ForceMode2D.Impulse);
             spawnedBullet.ownedRootBlock = this.mainBlock.GetRootBlock();
         }

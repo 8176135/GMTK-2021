@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Events;
 
 public class MainBlock : MonoBehaviour
@@ -43,12 +44,18 @@ public class MainBlock : MonoBehaviour
 
     public MainBlock GetRootBlock()
     {
+        if (!this.connectedToShip)
+        {
+            return this;
+        }
+
         if (this.parentBlock)
         {
             return this.parentBlock.GetRootBlock();
         }
         else
         {
+            Assert.IsNotNull(this.GetComponent<Robot>());
             return this;
         }
     }
@@ -61,7 +68,7 @@ public class MainBlock : MonoBehaviour
     public void NewThruster(Thruster newBlock)
     {
         this.thrusters.Add(newBlock.gameObject, newBlock);
-        if (this.parentBlock != false)
+        if (this.parentBlock)
         {
             this.parentBlock.NewThruster(newBlock);
         }
@@ -70,7 +77,7 @@ public class MainBlock : MonoBehaviour
     public void NewWeapon(Weapon newBlock)
     {
         this.weapons.Add(newBlock.gameObject, newBlock);
-        if (this.parentBlock != false)
+        if (this.parentBlock)
         {
             this.parentBlock.NewWeapon(newBlock);
         }
@@ -81,12 +88,15 @@ public class MainBlock : MonoBehaviour
         if (this.thrusters.Remove(newBlock))
         {
             (newBlock.GetComponent<Thruster>()).SetVisuals(0, 0);
-        };
+        }
+
+        ;
         if (this.weapons.Remove(newBlock))
         {
             (newBlock.GetComponent<Weapon>()).StopFiringWeapon();
         }
-        if (this.parentBlock != false)
+
+        if (this.parentBlock)
         {
             this.parentBlock.RemoveMisc(newBlock);
         }
@@ -94,20 +104,22 @@ public class MainBlock : MonoBehaviour
 
     void RemoveFromParent()
     {
-        RemoveMisc(this.gameObject);
         var toRemoveList = connectedObjects.ToList();
         foreach (var connectedObject in toRemoveList)
         {
             connectedObject.RemoveFromParent();
         }
-        if (this.parentBlock != false)
+        if (this.parentBlock)
         {
+            this.parentBlock.RemoveMisc(this.gameObject);
+
             this.parentBlock.connectedObjects.Remove(this);
             this.parentBlock.UpdateBlockCount(-BlockCount);
+            this.parentJoint.enabled = false;
+            this.parentJoint.connectedBody = null;
+            this.parentBlock = null;
             this.connectedToShip = false;
         }
-
-
     }
 
     void ConnectToShip(MainBlock otherBlock)
@@ -126,12 +138,12 @@ public class MainBlock : MonoBehaviour
     void UpdateBlockCount(int delta)
     {
         BlockCount += delta;
-        if (this.parentBlock != false)
+        if (this.parentBlock)
         {
             this.parentBlock.UpdateBlockCount(delta);
         }
     }
-    
+
     float GetMassSum()
     {
         return this.connectedObjects.Aggregate(this.rigidbody.mass, (a, b) => a + b.GetMassSum());
@@ -177,23 +189,22 @@ public class MainBlock : MonoBehaviour
             {
                 block.ConnectToShip(this);
             }
-            else
-            {
-            }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         var bullet = other.gameObject.GetComponent<Bullet>();
-        if (bullet != null && bullet.ownedRootBlock != this.GetRootBlock())
+        if (bullet != null)
         {
-            Debug.Log(bullet.ownedRootBlock);
-            Debug.Log(GetRootBlock());
-            RemoveFromParent();
-            Destroy(bullet.gameObject);
-            Destroy(gameObject);
-            // TODO: spawn explosion
+            if (!bullet.IsDestroyed() && bullet.ownedRootBlock.GetInstanceID() != GetRootBlock().GetInstanceID())
+            {
+                Destroy(bullet.transform.gameObject);
+                Destroy(gameObject);
+                RemoveFromParent();
+                bullet.gameObject.name = "ToBeDestroyed";
+                // TODO: spawn explosion
+            }
         }
     }
 }

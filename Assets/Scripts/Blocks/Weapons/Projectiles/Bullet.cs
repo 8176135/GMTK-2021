@@ -31,10 +31,10 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         var otherBullet = other.GetComponent<Bullet>();
-        if (otherBullet != null)
+        if (otherBullet != null && otherBullet.ownedRootBlock != ownedRootBlock)
         {
-            Destroy(this);
-            Destroy(otherBullet);
+            Destroy(this.gameObject);
+            Destroy(otherBullet.gameObject);
         }
     }
 }

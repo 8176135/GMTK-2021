@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initVelocity: 6
   ownedRootBlock: {fileID: 0}
-  timeToLive: 2
+  timeToLive: 10
 --- !u!50 &6277629935179615922
 Rigidbody2D:
   serializedVersion: 4
@@ -85,7 +85,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.05, y: 0.125}
+  m_Size: {x: 0.1, y: 0.25}
   m_Direction: 0
 --- !u!114 &3105935580203047307
 MonoBehaviour:

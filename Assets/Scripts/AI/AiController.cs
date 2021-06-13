@@ -66,7 +66,7 @@ public class AiController : MonoBehaviour
                     {
                         robot.Thrust(posDiff.normalized);
                     }
-                    else if (posDiff.magnitude < 0.5f)
+                    else if (posDiff.magnitude < 1f)
                     {
                         robot.Thrust(-posDiff.normalized);
                     }
