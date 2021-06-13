@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        mainCam = FindObjectOfType<Camera>();
         robot = GetComponent<Robot>();
         docs = FindObjectOfType<UIDocument>();
         scoreLabel = docs.rootVisualElement.Q<Label>("ScoreVal");
