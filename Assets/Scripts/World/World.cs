@@ -91,7 +91,8 @@ public class World : MonoBehaviour
         
         for (int i = 1; i < maxPasses + 1; i++)
         {
-            var scale = Mathf.Lerp(((float) size / 10) - i,  1f, (float) i / (maxPasses + 1));
+            // var scale = Mathf.Lerp(((float) size / 10) - i,  1f, (float) i / (maxPasses + 1));
+            var scale = Random.Range(1, 10);
             var halfScale = scale / 2;
 
             var fails = 0;
