@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AiController : MonoBehaviour
 {
@@ -21,7 +23,6 @@ public class AiController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating(nameof(SpawnSequence), spawnSpeed, spawnSpeed);
         player = GameObject.FindObjectOfType<PlayerController>().gameObject;
         robot = GetComponent<Robot>();
         mainBlock = GetComponent<MainBlock>();
@@ -37,6 +38,12 @@ public class AiController : MonoBehaviour
             robot.Fire(true);
             robot.SetAimTarget(player.transform.position);
         }
+    }
+
+    public void StartSpawnSequence(int numberOfParts)
+    {
+        this.numberOfParts = Random.Range(Math.Max(0, numberOfParts - 1), numberOfParts + 1);
+        InvokeRepeating(nameof(SpawnSequence), spawnSpeed, spawnSpeed);
     }
 
     void SpawnSequence()

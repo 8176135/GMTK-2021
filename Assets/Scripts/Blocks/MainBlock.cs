@@ -52,6 +52,11 @@ public class MainBlock : MonoBehaviour
         }
     }
 
+    public int GetDifficulty()
+    {
+        return thrusters.Count + weapons.Count;
+    }
+
     public void NewThruster(Thruster newBlock)
     {
         this.thrusters.Add(newBlock.gameObject, newBlock);
