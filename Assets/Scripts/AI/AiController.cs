@@ -80,12 +80,13 @@ public class AiController : MonoBehaviour
 
     void FindNearbyLoosePart()
     {
-        var results = Physics2D.CircleCastAll(transform.position, searchRadius, Vector2.up);
+        var position = transform.position;
+        var results = Physics2D.OverlapCircleAll(position, searchRadius, LayerMask.GetMask("Default"));
         // Debug.Log(results);
         var others = results
-            .OrderBy(c => c.distance)
-            .Select(c => c.rigidbody.GetComponent<MainBlock>())
-            .FirstOrDefault(c => !c.connectedToShip);
+            .OrderBy(c => (c.transform.position - position).sqrMagnitude)
+            .Select(c => c.GetComponent<MainBlock>())
+            .FirstOrDefault(c => c != null && !c.connectedToShip);
         hasNearbyLooseBlock = others != null;
 
         this.currentNearbyLooseBlock = others;

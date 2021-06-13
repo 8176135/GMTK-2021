@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1270725883427365837}
   - component: {fileID: 1722115346522526358}
-  m_Layer: 0
+  - component: {fileID: 662959053577303626}
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,6 +84,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &662959053577303626
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2714916504007318791}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.5718087, y: -0.08197798}
+      - {x: 0.5702179, y: 0.050157458}
+      - {x: 0.54703, y: 0.13663168}
+      - {x: 0.4277984, y: 0.26894718}
+      - {x: 0.24549319, y: 0.39236796}
+      - {x: -0.025055528, y: 0.4431458}
+      - {x: -0.1601361, y: 0.41578877}
+      - {x: -0.300218, y: 0.44452605}
+      - {x: -0.36681202, y: 0.41905215}
+      - {x: -0.470218, y: 0.34010494}
+      - {x: -0.51230514, y: 0.2223155}
+      - {x: -0.4614224, y: 0.036999024}
+      - {x: -0.5157112, y: -0.061052807}
+      - {x: -0.5112044, y: -0.15631682}
+      - {x: -0.54021806, y: -0.3066842}
+      - {x: -0.50516075, y: -0.36563134}
+      - {x: -0.38604358, y: -0.46126267}
+      - {x: 0.166812, y: -0.44910464}
+      - {x: 0.4683488, y: -0.32231548}
+      - {x: 0.54647964, y: -0.20447357}
 --- !u!1 &5874931586957742358
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +138,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8239579266069880381}
-  - component: {fileID: 8235846061803141371}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Untagged
@@ -115,29 +160,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &8235846061803141371
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5874931586957742358}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
