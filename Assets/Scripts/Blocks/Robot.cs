@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 public class Robot : MonoBehaviour
 {
-    private MainBlock mainBlock;
+    public MainBlock mainBlock;
     private new Rigidbody2D rigidbody2D;
     /// <summary>
     /// Where the player is looking (for player, it's where the mouse is)

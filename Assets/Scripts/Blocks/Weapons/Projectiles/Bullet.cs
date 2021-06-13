@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,16 @@ public class Bullet : MonoBehaviour
         if (timeToLive < 0)
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        var otherBullet = other.GetComponent<Bullet>();
+        if (otherBullet != null)
+        {
+            Destroy(this);
+            Destroy(otherBullet);
         }
     }
 }

@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-direction: row; font-size: 15px;">
+        <ui:Label text="Number of blocks:  " display-tooltip-when-elided="true" style="font-size: 17px; color: rgb(255, 255, 255);" />
+        <ui:Label text="Score" display-tooltip-when-elided="true" name="ScoreVal" style="font-size: 17px; width: 50px; color: rgb(255, 255, 255);" />
+    </ui:VisualElement>
+</ui:UXML>

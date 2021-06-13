@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,12 +11,17 @@ public class PlayerController : MonoBehaviour
     public Camera mainCam;
     private Robot robot;
 
+    public UIDocument docs;
+    public Label scoreLabel;
+    
     private Vector2 _playerAimPos = Vector2.zero;
     
     // Start is called before the first frame update
     void Start()
     {
         robot = GetComponent<Robot>();
+        docs = FindObjectOfType<UIDocument>();
+        scoreLabel = docs.rootVisualElement.Q<Label>("ScoreVal");
     }
 
     // Update is called once per frame
@@ -24,6 +30,7 @@ public class PlayerController : MonoBehaviour
         var mainCamPos = mainCam.ScreenToWorldPoint(_playerAimPos);
         robot.Turning(mainCamPos);
         robot.SetAimTarget(mainCamPos);
+        scoreLabel.text = robot.mainBlock.BlockCount.ToString();
     }
 
     public void MovePlayer(InputAction.CallbackContext context)
