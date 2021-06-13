@@ -135,7 +135,7 @@ public class Robot : MonoBehaviour
 
     private void OnDestroy()
     {
-        GetComponent<AudioSource>().PlayOneShot(audioDeath);
+        AudioSource.PlayClipAtPoint(audioDeath, transform.position);
     }
 
     public void SetAimTarget(Vector2 aimPos)
