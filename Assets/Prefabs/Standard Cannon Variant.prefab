@@ -127,6 +127,7 @@ MonoBehaviour:
   bullet: {fileID: 54778591206982149, guid: 86cd3579a6cc8486194beecb000fec56, type: 3}
   rendererTransform: {fileID: 768468269354998642}
   animator: {fileID: 653994837448838941}
+  shakerPreset: {fileID: 11400000, guid: f72d37a8eb845ce4bab5bc21acfa6cff, type: 2}
 --- !u!1 &4418229402772246247
 GameObject:
   m_ObjectHideFlags: 0
