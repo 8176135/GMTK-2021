@@ -18,6 +18,7 @@ MonoBehaviour:
   thrustPowerSpeedPerThruster: 1.5
   robotMaxTorque: 10
   audioDeath: {fileID: 8300000, guid: a4651af76f0732df3b9f2a496d50119b, type: 3}
+  controlStrength: 200
 --- !u!114 &1003671864
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -30,6 +30,8 @@ public class Robot : MonoBehaviour
 
     public AudioClip audioDeath;
 
+    public float controlStrength;
+
     // Start is called before the first frame update
 
     void Start()
@@ -113,7 +115,7 @@ public class Robot : MonoBehaviour
             // TODO: Figure out why this is needed
             if (!thruster.Value.IsDestroyed())
             {
-                thruster.Value.Rigidbody2D.AddForce(controlDirection * thrustPowerSpeedPerThruster);
+                thruster.Value.Rigidbody2D.AddForce(controlDirection * (thrustPowerSpeedPerThruster * controlStrength * Time.deltaTime));
             }
             else
             {
@@ -128,7 +130,7 @@ public class Robot : MonoBehaviour
 
         redundentObjs.Clear();
 
-        rigidbody2D.AddForce(controlDirection * 1f);
+        rigidbody2D.AddForce(controlDirection * (controlStrength * Time.deltaTime));
         
         UpdateThrusters();
     }
