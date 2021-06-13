@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class ReplayMenuController : MonoBehaviour
 {
-    public void Replay()
+    public void TitleScreen()
     {
-        SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
     }
 }
