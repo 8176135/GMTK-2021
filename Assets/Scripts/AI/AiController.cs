@@ -80,12 +80,13 @@ public class AiController : MonoBehaviour
 
     void FindNearbyLoosePart()
     {
-        var results = Physics2D.CircleCastAll(transform.position, searchRadius, Vector2.up);
+        var position = transform.position;
+        var results = Physics2D.OverlapCircleAll(position, searchRadius, LayerMask.GetMask("Default"));
         // Debug.Log(results);
         var others = results
-            .OrderBy(c => c.distance)
-            .Select(c => c.rigidbody.GetComponent<MainBlock>())
-            .FirstOrDefault(c => !c.connectedToShip);
+            .OrderBy(c => (c.transform.position - position).sqrMagnitude)
+            .Select(c => c.GetComponent<MainBlock>())
+            .FirstOrDefault(c => c != null && !c.connectedToShip);
         hasNearbyLooseBlock = others != null;
 
         this.currentNearbyLooseBlock = others;
@@ -107,17 +108,27 @@ public class AiController : MonoBehaviour
         }
 
         var idx = Random.Range(0, partsList.Length);
+        
+        var attempts = 3;
+        while (attempts-- > 0)
+        {
+            var offset = (Random.insideUnitCircle.normalized * (1 + counter * 0.1f));
+            var spawnPos = offset + (Vector2) this.transform.position;
+            
+            if (Physics2D.OverlapCircle(spawnPos, 0.25f, LayerMask.GetMask("WorldObstacle")) == null)
+            {
+                var a = Instantiate(partsList[idx],
+                    offset + (Vector2) this.transform.position,
+                    Quaternion.Euler(0.0f, 0.0f, Random.Range(0, 360)));
 
-        var offset = (Random.insideUnitCircle.normalized * (1 + counter * 0.1f));
+                // Debug.DrawLine((Vector2) this.transform.position, (Random.insideUnitCircle.normalized * 2) + (Vector2) this.transform.position, Color.red, 100.0f);
 
-        var a = Instantiate(partsList[idx],
-            offset + (Vector2) this.transform.position,
-            Quaternion.Euler(0.0f, 0.0f, Random.Range(0, 360)));
+                a.GetComponent<Rigidbody2D>().AddForce(-offset * combineForce, ForceMode2D.Impulse);
 
-        // Debug.DrawLine((Vector2) this.transform.position, (Random.insideUnitCircle.normalized * 2) + (Vector2) this.transform.position, Color.red, 100.0f);
+                counter++;
+            }
+        }
 
-        a.GetComponent<Rigidbody2D>().AddForce(-offset * combineForce, ForceMode2D.Impulse);
 
-        counter++;
     }
 }
