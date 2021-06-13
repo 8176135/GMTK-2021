@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498d18d72c45dc84193ad86f3af6b89e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainBlock: {fileID: 0}
   targetPosition: {x: 0, y: 0}
   turnSpeedPerThruster: 400
   thrustPowerSpeedPerThruster: 1.5
   robotMaxTorque: 10
+  audioDeath: {fileID: 8300000, guid: a4651af76f0732df3b9f2a496d50119b, type: 3}
 --- !u!114 &1003671864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37,7 +39,12 @@ MonoBehaviour:
   - {fileID: 4107259971884929834, guid: 7357d07abad85c554ac7080153c772a0, type: 3}
   player: {fileID: 0}
   robot: {fileID: 0}
+  mainBlock: {fileID: 0}
   awarenessRadius: 100
+  searchRadius: 50
+  currentNearbyLooseBlock: {fileID: 0}
+  hasNearbyLooseBlock: 0
+  NotFromSpawner: 0
 --- !u!1001 &763626114110319218
 PrefabInstance:
   m_ObjectHideFlags: 0

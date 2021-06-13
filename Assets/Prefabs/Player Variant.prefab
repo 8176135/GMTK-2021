@@ -169,6 +169,7 @@ MonoBehaviour:
   turnSpeedPerThruster: 400
   thrustPowerSpeedPerThruster: 1.5
   robotMaxTorque: 100
+  audioDeath: {fileID: 8300000, guid: a4651af76f0732df3b9f2a496d50119b, type: 3}
 --- !u!1001 &4344910655510857841
 PrefabInstance:
   m_ObjectHideFlags: 0

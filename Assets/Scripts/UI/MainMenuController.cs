@@ -7,6 +7,7 @@ public class MainMenuController : MonoBehaviour
 {
     public void Play()
     {
+        GetComponent<AudioSource>().Play();
         SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
     }
 }

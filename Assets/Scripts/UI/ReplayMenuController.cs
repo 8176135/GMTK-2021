@@ -7,6 +7,7 @@ public class ReplayMenuController : MonoBehaviour
 {
     public void TitleScreen()
     {
+        GetComponent<AudioSource>().Play();
         SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
     }
 }

@@ -159,7 +159,7 @@ MonoBehaviour:
   destroyedShakePreset: {fileID: 11400000, guid: 6233542961b10164b855ada3d3438d11, type: 2}
   connectedToShip: 0
   audioAttach: {fileID: 8300000, guid: 4c9ac5ab66f05923aafce2ff64160254, type: 3}
-  audioDetach: {fileID: 8300000, guid: e8cd737b91bae80b3a778387cc2a78bd, type: 3}
+  audioDetach: {fileID: 8300000, guid: 4c9ac5ab66f05923aafce2ff64160254, type: 3}
 --- !u!255 &-109334933507652232
 FixedJoint2D:
   m_ObjectHideFlags: 0

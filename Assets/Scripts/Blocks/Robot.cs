@@ -28,7 +28,10 @@ public class Robot : MonoBehaviour
 
     public float robotMaxTorque = 10.0f;
 
+    public AudioClip audioDeath;
+
     // Start is called before the first frame update
+
     void Start()
     {
         mainBlock = this.GetComponent<MainBlock>();
@@ -128,6 +131,11 @@ public class Robot : MonoBehaviour
         rigidbody2D.AddForce(controlDirection * 1f);
         
         UpdateThrusters();
+    }
+
+    private void OnDestroy()
+    {
+        GetComponent<AudioSource>().PlayOneShot(audioDeath);
     }
 
     public void SetAimTarget(Vector2 aimPos)
