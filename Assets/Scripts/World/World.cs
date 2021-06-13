@@ -4,6 +4,10 @@ using UnityEngine.UI;
 
 public class World : MonoBehaviour
 {
+    [Header("SubObject Ref")]
+    public GameObject blocks;
+    public GameObject terrain;
+    
     [Header("Wall ref")]
     public Transform wallNorth;
     public Transform wallSouth;
@@ -28,9 +32,7 @@ public class World : MonoBehaviour
     [Header("Terrain max passes")]
     [Range(1, 128)]
     public int maxPasses = 1;
-
-    private GameObject[] obstacles;
-    private GameObject[] blocks;
+    
     private Rect[] allRects = new Rect[0];
     
     
@@ -49,6 +51,7 @@ public class World : MonoBehaviour
         
         Random.InitState(seed);
 
+        allRects = new Rect[0];
         CleanTerrain();
         CleanBlocks();
 
@@ -81,7 +84,6 @@ public class World : MonoBehaviour
 
     public void PlaceTerrain()
     {
-        var placedObstacles = new List<GameObject>();
         var placedObRectangles = new List<Rect>();
         placedObRectangles.AddRange(allRects);
         
@@ -117,7 +119,7 @@ public class World : MonoBehaviour
                     continue;
                 }
                 
-                var spawned = Instantiate(obstacle, new Vector3(x, y, 0f), Quaternion.identity);
+                var spawned = Instantiate(obstacle, new Vector3(x, y, 0f), Quaternion.identity, terrain.transform);
                 spawned.transform.localScale = new Vector3(scale, scale, 1f);
 
                 var angle = Random.Range(0, 360);
@@ -127,52 +129,32 @@ public class World : MonoBehaviour
                 if (angle >= 270 && angle < 360) angle = 270;
                 
                 spawned.transform.Rotate(0, 0, angle);
-                placedObstacles.Add(spawned);
                 placedObRectangles.Add(new Rect(x - halfScale, y - halfScale, scale, scale));
                 
                 success++;
             }
         }
-
-        obstacles = placedObstacles.ToArray();
     }
 
     public void CleanTerrain()
     {
-        if (obstacles == null)
+        for (int i = terrain.transform.childCount-1; i >= 0; i--)
         {
-            obstacles = new GameObject[0];
-            return;
+            DestroyImmediate(terrain.transform.GetChild(i).gameObject);
         }
-        
-        foreach (var ob in obstacles)
-        {
-            DestroyImmediate(ob);
-        }
-
-        obstacles = new GameObject[0];
     }
 
     public void CleanBlocks()
     {
-        if (blocks == null)
+        for (int i = blocks.transform.childCount-1; i >= 0; i--)
         {
-            blocks = new GameObject[0];
-            return;
+            DestroyImmediate(blocks.transform.GetChild(i).gameObject);
         }
-        
-        foreach (var bl in blocks)
-        {
-            DestroyImmediate(bl);
-        }
-
-        blocks = new GameObject[0];
     }
     
     public void PlaceBlocks()
     {
         var halfSize = (float) size / 2;
-        var placedBlocks = new List<GameObject>();
         var placedBlockRects = new List<Rect>();
         
         var scale = 1f;
@@ -217,7 +199,7 @@ public class World : MonoBehaviour
                         continue;
                     }
                 
-                    var spawned = Instantiate(blockData.block, new Vector3(x, y, 0f), Quaternion.identity);
+                    var spawned = Instantiate(blockData.block, new Vector3(x, y, 0f), Quaternion.identity, blocks.transform);
 
                     var angle = Random.Range(0, 360);
                     if (angle < 90) angle = 0;
@@ -226,15 +208,12 @@ public class World : MonoBehaviour
                     if (angle >= 270 && angle < 360) angle = 270;
                 
                     spawned.transform.Rotate(0, 0, angle);
-                    placedBlocks.Add(spawned);
                     placedBlockRects.Add(new Rect(x - halfScale, y - halfScale, 1, 1));
                 
                     success++;
                 }
             }
         }
-
-        blocks = placedBlocks.ToArray();
 
         var temp = new List<Rect>(allRects);
         temp.AddRange(placedBlockRects.ToArray());
