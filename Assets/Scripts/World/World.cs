@@ -27,6 +27,7 @@ public class World : MonoBehaviour
     public int maxPasses = 1;
 
     private GameObject[] obstacles;
+    private Rect[] allRects;
     
     
     // Start is called before the first frame update
@@ -54,10 +55,20 @@ public class World : MonoBehaviour
         wallEast.position = new Vector3(halfSize + halfWallWidth, 0f);
         wallWest.position = new Vector3(-halfSize - halfWallWidth, 0f);
 
-        wallNorth.localScale = new Vector3(size, wallWidth, 1f);
-        wallSouth.localScale = new Vector3(size, wallWidth, 1f);
-        wallEast.localScale = new Vector3(size, wallWidth, 1f);
-        wallWest.localScale = new Vector3(size, wallWidth, 1f);
+        // This is meant to prevent the obstacles from being placed in the wall
+        // But I've run out of patience to fix it atm
+        allRects = new[]
+        {
+            new Rect(-halfSize, halfSize + halfWallWidth, size, wallWidth),
+            new Rect(-halfSize, -(halfSize + halfWallWidth), size, wallWidth),
+            new Rect(-(halfSize + halfWallWidth), halfSize, wallWidth, size),
+            new Rect(halfSize + halfWallWidth, halfSize, wallWidth, size)
+        };
+
+        wallNorth.localScale = new Vector3(size + (wallWidth * 2), wallWidth, 1f);
+        wallSouth.localScale = new Vector3(size + (wallWidth * 2), wallWidth, 1f);
+        wallEast.localScale = new Vector3(size + (wallWidth * 2), wallWidth, 1f);
+        wallWest.localScale = new Vector3(size + (wallWidth * 2), wallWidth, 1f);
 
         PlaceTerrain();
     }
@@ -66,6 +77,8 @@ public class World : MonoBehaviour
     {
         var placedObstacles = new List<GameObject>();
         var placedObRectangles = new List<Rect>();
+        placedObRectangles.AddRange(allRects);
+        
         var halfSize = (float) size / 2;
         
         for (int i = 1; i < maxPasses + 1; i++)
