@@ -47,11 +47,11 @@ public class AiController : MonoBehaviour
     {
         if (!player.IsDestroyed())
         {
-            var blockDiff = this.mainBlock.BlockCount - player.robot.mainBlock.BlockCount;
+            var blockDiff = (float)this.mainBlock.BlockCount / player.robot.mainBlock.BlockCount;
             var posDiff = player.transform.position - transform.position;
             if (posDiff.magnitude < awarenessRadius && counter >= numberOfParts)
             {
-                if (blockDiff < -1) // Has less blocks than player
+                if (blockDiff < 0.8f || mainBlock.BlockCount <= 1) // Has less blocks than player
                 {
                     if (hasNearbyLooseBlock && !currentNearbyLooseBlock.IsDestroyed() &&
                         !currentNearbyLooseBlock.connectedToShip)

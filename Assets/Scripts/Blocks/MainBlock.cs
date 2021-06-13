@@ -21,7 +21,7 @@ public class MainBlock : MonoBehaviour
 
     public UnityEvent<MainBlock> connectedToParent;
 
-    public float massSum;
+    // public float massSum;
     public Vector2 calculatedCenterOfMass;
 
     public ShakePreset destroyedShakePreset;
@@ -35,7 +35,7 @@ public class MainBlock : MonoBehaviour
     {
         parentJoint = this.GetComponent<FixedJoint2D>();
         rigidbody = this.GetComponent<Rigidbody2D>();
-        massSum = rigidbody.mass;
+        // massSum = rigidbody.mass;
         calculatedCenterOfMass = rigidbody.centerOfMass;
     }
 
@@ -118,11 +118,12 @@ public class MainBlock : MonoBehaviour
 
             this.parentBlock.connectedObjects.Remove(this);
             this.parentBlock.UpdateBlockCount(-BlockCount);
-            this.parentJoint.enabled = false;
-            this.parentJoint.connectedBody = null;
-            this.parentBlock = null;
-            this.connectedToShip = false;
         }
+        this.parentJoint.enabled = false;
+        this.parentJoint.connectedBody = null;
+        this.parentBlock = null;
+        this.connectedToShip = false;
+
     }
 
     void ConnectToShip(MainBlock otherBlock)
@@ -132,7 +133,7 @@ public class MainBlock : MonoBehaviour
         parentJoint.connectedBody = this.parentBlock.GetComponent<Rigidbody2D>();
         parentJoint.enabled = true;
         otherBlock.connectedObjects.Add(this);
-        otherBlock.massSum = otherBlock.GetMassSum();
+        // otherBlock.massSum = otherBlock.GetMassSum();
         otherBlock.UpdateBlockCount(this.BlockCount);
         // otherBlock.UpdateCenterOfMass();
         connectedToParent.Invoke(otherBlock);
