@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireWeapon: 0
-  weaponInterval: 0.2
+  weaponInterval: 0.5
   weaponCooldown: 0.2
   bullet: {fileID: 54778591206982149, guid: 86cd3579a6cc8486194beecb000fec56, type: 3}
   rendererTransform: {fileID: 768468269354998642}

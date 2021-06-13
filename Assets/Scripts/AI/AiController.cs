@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -31,13 +32,17 @@ public class AiController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var posDiff = player.transform.position - transform.position;
-        if (posDiff.magnitude < awarenessRadius && counter > numberOfParts)
+        if (!player.IsDestroyed())
         {
-            robot.Thrust(posDiff.normalized);
-            robot.Fire(true);
-            robot.SetAimTarget(player.transform.position);
+            var posDiff = player.transform.position - transform.position;
+            if (posDiff.magnitude < awarenessRadius && counter > numberOfParts)
+            {
+                robot.Thrust(posDiff.normalized);
+                robot.Fire(true);
+                robot.SetAimTarget(player.transform.position);
+            }
         }
+
     }
 
     public void StartSpawnSequence(int numberOfParts)

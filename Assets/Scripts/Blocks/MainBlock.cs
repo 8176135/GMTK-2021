@@ -9,6 +9,7 @@ using UnityEngine.Events;
 public class MainBlock : MonoBehaviour
 {
     public HashSet<MainBlock> connectedObjects = new HashSet<MainBlock>();
+    public int BlockCount = 1;
     private MainBlock parentBlock;
     private FixedJoint2D parentJoint;
     public new Rigidbody2D rigidbody;
@@ -78,6 +79,7 @@ public class MainBlock : MonoBehaviour
     public void RemoveMisc(GameObject newBlock)
     {
         this.thrusters.Remove(newBlock);
+        this.weapons.Remove(newBlock);
         if (this.parentBlock != false)
         {
             this.parentBlock.RemoveMisc(newBlock);
@@ -86,12 +88,20 @@ public class MainBlock : MonoBehaviour
 
     void RemoveFromParent()
     {
+        RemoveMisc(this.gameObject);
+        var toRemoveList = connectedObjects.ToList();
+        foreach (var connectedObject in toRemoveList)
+        {
+            connectedObject.RemoveFromParent();
+        }
         if (this.parentBlock != false)
         {
             this.parentBlock.connectedObjects.Remove(this);
+            this.parentBlock.UpdateBlockCount(-BlockCount);
+            this.connectedToShip = false;
         }
 
-        RemoveMisc(this.gameObject);
+
     }
 
     void ConnectToShip(MainBlock otherBlock)
@@ -102,10 +112,20 @@ public class MainBlock : MonoBehaviour
         parentJoint.enabled = true;
         otherBlock.connectedObjects.Add(this);
         otherBlock.massSum = otherBlock.GetMassSum();
+        otherBlock.UpdateBlockCount(this.BlockCount);
         // otherBlock.UpdateCenterOfMass();
         connectedToParent.Invoke(otherBlock);
     }
 
+    void UpdateBlockCount(int delta)
+    {
+        BlockCount += delta;
+        if (this.parentBlock != false)
+        {
+            this.parentBlock.UpdateBlockCount(delta);
+        }
+    }
+    
     float GetMassSum()
     {
         return this.connectedObjects.Aggregate(this.rigidbody.mass, (a, b) => a + b.GetMassSum());
