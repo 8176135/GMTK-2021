@@ -55,7 +55,6 @@ public class MainBlock : MonoBehaviour
         }
         else
         {
-            Assert.IsNotNull(this.GetComponent<Robot>());
             return this;
         }
     }
@@ -199,10 +198,9 @@ public class MainBlock : MonoBehaviour
         {
             if (!bullet.IsDestroyed() && bullet.ownedRootBlock.GetInstanceID() != GetRootBlock().GetInstanceID())
             {
+                RemoveFromParent();
                 Destroy(bullet.transform.gameObject);
                 Destroy(gameObject);
-                RemoveFromParent();
-                bullet.gameObject.name = "ToBeDestroyed";
                 // TODO: spawn explosion
             }
         }
