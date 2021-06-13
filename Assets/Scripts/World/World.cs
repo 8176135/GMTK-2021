@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class World : MonoBehaviour
@@ -64,23 +65,34 @@ public class World : MonoBehaviour
     public void PlaceTerrain()
     {
         var placedObstacles = new List<GameObject>();
+        var placedObRectangles = new List<Rect>();
+        var halfSize = (float) size / 2;
         
         for (int i = 1; i < maxPasses + 1; i++)
         {
             var scale = Mathf.Lerp(((float) size / 10) - i,  1f, (float) i / (maxPasses + 1));
-            var halfSize = (float) size / 2;
+            var halfScale = scale / 2;
 
             var fails = 0;
             var success = 0;
 
-            while (fails < i || success < i)
+            while (fails < i && success < i)
             {
                 var x = Random.Range(-halfSize, halfSize);
                 var y = Random.Range(-halfSize, halfSize);
 
-                var overlapResults = new Collider2D[0];
-                var result = Physics2D.OverlapBoxNonAlloc(new Vector2(x, y), new Vector2(scale, scale), 0f, overlapResults);
-                if (result == 0)
+                var thisRect = new Rect(x - halfScale, y - halfScale, scale, scale);
+
+                var isOverlap = false;
+                foreach (var placedRect in placedObRectangles)
+                {
+                    if (!placedRect.Overlaps(thisRect)) continue;
+                    
+                    isOverlap = true;
+                    break;
+                }
+                
+                if (isOverlap)
                 {
                     fails++;
                     continue;
@@ -89,6 +101,7 @@ public class World : MonoBehaviour
                 var spawned = Instantiate(obstacle, new Vector3(x, y, 0f), Quaternion.identity);
                 spawned.transform.localScale = new Vector3(scale, scale, 1f);
                 placedObstacles.Add(spawned);
+                placedObRectangles.Add(new Rect(x - halfScale, y - halfScale, scale, scale));
                 
                 success++;
             }
