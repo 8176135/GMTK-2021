@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -92,6 +93,7 @@ public class Robot : MonoBehaviour
     }
 
 
+    private List<GameObject> redundentObjs = new List<GameObject>();
     // Update is called once per frame
     void Update()
     {
@@ -103,10 +105,25 @@ public class Robot : MonoBehaviour
         var actualTorque = robotMaxTorque + thrusters.Count * turnSpeedPerThruster; 
         rigidbody2D.AddTorque(Mathf.Clamp(difAngle * 0.05f, -1.0f, 1.0f) * actualTorque * Time.deltaTime);
         
-        foreach (var thruster in thrusters.Values)
+        foreach (var thruster in thrusters)
         {
-            thruster.Rigidbody2D.AddForce(controlDirection * thrustPowerSpeedPerThruster);
+            // TODO: Figure out why this is needed
+            if (!thruster.Value.IsDestroyed())
+            {
+                thruster.Value.Rigidbody2D.AddForce(controlDirection * thrustPowerSpeedPerThruster);
+            }
+            else
+            {
+                redundentObjs.Add(thruster.Key);
+            }
         }
+
+        foreach (var obj in redundentObjs)
+        {
+            thrusters.Remove(obj);
+        }
+
+        redundentObjs.Clear();
 
         rigidbody2D.AddForce(controlDirection * 0.5f);
         

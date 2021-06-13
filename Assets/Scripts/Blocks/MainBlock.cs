@@ -191,8 +191,8 @@ public class MainBlock : MonoBehaviour
             Debug.Log(bullet.ownedRootBlock);
             Debug.Log(GetRootBlock());
             RemoveFromParent();
-            Destroy(gameObject);
             Destroy(bullet.gameObject);
+            Destroy(gameObject);
             // TODO: spawn explosion
         }
     }
