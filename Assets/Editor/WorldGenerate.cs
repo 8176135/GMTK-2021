@@ -21,5 +21,9 @@ public class WorldGenerate : Editor {
         if (GUILayout.Button ("Clean Terrain")) {
             mapGen.CleanTerrain();
         }
+        
+        if (GUILayout.Button ("Clean Blocks")) {
+            mapGen.CleanBlocks();
+        }
     }
 }

@@ -11,8 +11,6 @@ public class BackgroundTiler : MonoBehaviour
 
     public float spriteWidth = 1;
     public float spriteHeight = 1;
-
-    public bool autoUpdate = true;
     
     private List<GameObject> _backgroundList = new List<GameObject>();
 

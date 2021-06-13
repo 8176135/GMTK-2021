@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,15 +21,19 @@ public class World : MonoBehaviour
     public float wallWidth = 64f;
     public bool autoUpdate;
     
-    [Header("WorldSeed")]
+    [Header("World Seed")]
     public bool useRandomSeed;
     public int seed;
+
+    [Header("Block list")]
+    public BlockPlaceInfo[] blocksToPlace;
     
     [Header("Terrain max passes")]
     [Range(1, 128)]
     public int maxPasses = 1;
 
     private GameObject[] obstacles;
+    private GameObject[] blocks;
     private Rect[] allRects;
     
     
@@ -50,6 +53,7 @@ public class World : MonoBehaviour
         Random.InitState(seed);
 
         CleanTerrain();
+        CleanBlocks();
 
         var localScale = new Vector3(size, size, 0);
         
@@ -83,6 +87,7 @@ public class World : MonoBehaviour
         wallWest.localScale = new Vector3(size + (wallWidth * 2), wallWidth, 1f);
 
         PlaceTerrain();
+        PlaceBlocks();
     }
 
     public void PlaceTerrain()
@@ -125,10 +130,14 @@ public class World : MonoBehaviour
                 
                 var spawned = Instantiate(obstacle, new Vector3(x, y, 0f), Quaternion.identity);
                 spawned.transform.localScale = new Vector3(scale, scale, 1f);
+
+                var angle = Random.Range(0, 360);
+                if (angle < 90) angle = 0;
+                if (angle >= 90 && angle < 180) angle = 90;
+                if (angle >= 180 && angle < 270) angle = 180;
+                if (angle >= 270 && angle < 360) angle = 270;
                 
-                
-                
-                spawned.transform.Rotate(0, 0, Random.Range(0, 360));
+                spawned.transform.Rotate(0, 0, angle);
                 placedObstacles.Add(spawned);
                 placedObRectangles.Add(new Rect(x - halfScale, y - halfScale, scale, scale));
                 
@@ -141,7 +150,11 @@ public class World : MonoBehaviour
 
     public void CleanTerrain()
     {
-        if (obstacles == null) return;
+        if (obstacles == null)
+        {
+            obstacles = new GameObject[0];
+            return;
+        }
         
         foreach (var ob in obstacles)
         {
@@ -149,5 +162,93 @@ public class World : MonoBehaviour
         }
 
         obstacles = new GameObject[0];
+    }
+
+    public void CleanBlocks()
+    {
+        if (blocks == null)
+        {
+            blocks = new GameObject[0];
+            return;
+        }
+        
+        foreach (var bl in blocks)
+        {
+            DestroyImmediate(bl);
+        }
+
+        blocks = new GameObject[0];
+    }
+    
+    public void PlaceBlocks()
+    {
+        var halfSize = (float) size / 2;
+        var placedBlocks = new List<GameObject>();
+        var placedBlockRects = new List<Rect>();
+        
+        var scale = 1f;
+        var halfScale = scale / 2;
+        
+        foreach (var blockData in blocksToPlace)
+        {
+            for (int i = 1; i < blockData.maxPasses + 1; i++)
+            {
+                var fails = 0;
+                var success = 0;
+
+                while (fails < i && success < i)
+                {
+                    var x = Random.Range(-halfSize, halfSize);
+                    var y = Random.Range(-halfSize, halfSize);
+
+                    var thisRect = new Rect(x - halfScale, y - halfScale, 1, 1);
+
+                    var isOverlap = false;
+                    // For each in these rects
+                    foreach (var placedRect in placedBlockRects)
+                    {
+                        if (!placedRect.Overlaps(thisRect)) continue;
+                    
+                        isOverlap = true;
+                        break;
+                    }
+                    
+                    // For each in all rects
+                    foreach (var rect in allRects)
+                    {
+                        if (!rect.Overlaps(thisRect)) continue;
+                    
+                        isOverlap = true;
+                        break;
+                    }
+                
+                    if (isOverlap)
+                    {
+                        fails++;
+                        continue;
+                    }
+                
+                    var spawned = Instantiate(blockData.block, new Vector3(x, y, 0f), Quaternion.identity);
+
+                    var angle = Random.Range(0, 360);
+                    if (angle < 90) angle = 0;
+                    if (angle >= 90 && angle < 180) angle = 90;
+                    if (angle >= 180 && angle < 270) angle = 180;
+                    if (angle >= 270 && angle < 360) angle = 270;
+                
+                    spawned.transform.Rotate(0, 0, angle);
+                    placedBlocks.Add(spawned);
+                    placedBlockRects.Add(new Rect(x - halfScale, y - halfScale, 1, 1));
+                
+                    success++;
+                }
+            }
+        }
+
+        blocks = placedBlocks.ToArray();
+
+        var temp = new List<Rect>(allRects);
+        temp.AddRange(placedBlockRects.ToArray());
+        allRects = temp.ToArray();
     }
 }
