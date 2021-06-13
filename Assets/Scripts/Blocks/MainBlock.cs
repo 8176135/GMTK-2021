@@ -119,11 +119,11 @@ public class MainBlock : MonoBehaviour
             this.parentBlock.connectedObjects.Remove(this);
             this.parentBlock.UpdateBlockCount(-BlockCount);
         }
+
         this.parentJoint.enabled = false;
         this.parentJoint.connectedBody = null;
         this.parentBlock = null;
         this.connectedToShip = false;
-
     }
 
     void ConnectToShip(MainBlock otherBlock)
@@ -189,9 +189,29 @@ public class MainBlock : MonoBehaviour
 
         if (block != null)
         {
-            if (!block.connectedToShip && this.connectedToShip)
+            if (this.connectedToShip)
             {
-                block.ConnectToShip(this);
+                if (!block.connectedToShip)
+                {
+                    block.ConnectToShip(this);
+                }
+                // else if (collision.relativeVelocity.magnitude > 1.0f)
+                // {
+                //     block.RemoveFromParent();
+                //     this.RemoveFromParent();
+                //     Destroy(block.gameObject);
+                //     Destroy(gameObject);
+                //     var hitPoint = collision.GetContact(0).point;
+                //     var toPush = Physics2D.OverlapCircleAll(hitPoint, 4.0f, ~LayerMask.GetMask("WorldObstacle"));
+                //     foreach (var stuff in toPush)
+                //     {
+                //         if (stuff.GetComponent<MainBlock>() != null)
+                //         {
+                //             stuff.attachedRigidbody.AddForceAtPosition(
+                //                 (hitPoint - stuff.attachedRigidbody.position).normalized * 4, hitPoint, ForceMode2D.Impulse);
+                //         }
+                //     }
+                // }
             }
         }
     }
@@ -212,6 +232,6 @@ public class MainBlock : MonoBehaviour
 
     private void OnDestroy()
     {
-        Shaker.ShakeAllFromPoint(transform.position + new Vector3(0,0, -10.0f), 15.0f, destroyedShakePreset);
+        Shaker.ShakeAllFromPoint(transform.position + new Vector3(0, 0, -10.0f), 15.0f, destroyedShakePreset);
     }
 }

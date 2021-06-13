@@ -92,7 +92,7 @@ public class World : MonoBehaviour
         placedObRectangles.AddRange(allRects);
         
         var halfSize = (float) size / 2;
-        
+        var spawnLocation = new Rect(-10.0f, -6.0f, 20.0f, 12.0f);
         for (int i = 1; i < maxPasses + 1; i++)
         {
             // var scale = Mathf.Lerp(((float) size / 10) - i,  1f, (float) i / (maxPasses + 1));
@@ -124,6 +124,11 @@ public class World : MonoBehaviour
                     
                     isOverlap = true;
                     break;
+                }
+
+                if (!isOverlap)
+                {
+                    isOverlap = spawnLocation.Overlaps(thisRect);
                 }
                 
                 if (isOverlap)

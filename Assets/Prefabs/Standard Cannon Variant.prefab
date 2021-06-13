@@ -353,6 +353,10 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 82946041674254958, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
+      propertyPath: m_Mass
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 82946041674254959, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: m_Name
       value: Standard Cannon Variant
