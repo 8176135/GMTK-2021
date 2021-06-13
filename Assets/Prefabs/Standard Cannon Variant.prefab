@@ -126,6 +126,7 @@ MonoBehaviour:
   weaponCooldown: 0.2
   bullet: {fileID: 54778591206982149, guid: 86cd3579a6cc8486194beecb000fec56, type: 3}
   rendererTransform: {fileID: 768468269354998642}
+  animator: {fileID: 653994837448838941}
 --- !u!1 &4418229402772246247
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,9 +220,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4418229402772246247}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: db7606dd70106c74aad1711f321c9998, type: 2}
+  m_Controller: {fileID: 9100000, guid: 434d3e79e848f4343b2bae56c8244cf2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -272,6 +273,10 @@ PrefabInstance:
     - target: {fileID: 82946041674254959, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: m_Name
       value: Standard Cannon Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643085707330292548, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2814830011463430344, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: m_Sprite
@@ -349,8 +354,13 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4792256869287860565, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 434d3e79e848f4343b2bae56c8244cf2, type: 2}
     m_RemovedComponents:
     - {fileID: 2814830011463430344, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
+    - {fileID: 4792256869287860565, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
 --- !u!1 &4107259971884929834 stripped
 GameObject:

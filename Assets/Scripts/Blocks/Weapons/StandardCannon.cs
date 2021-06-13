@@ -9,6 +9,8 @@ public class StandardCannon : Weapon
     public GameObject bullet;
     public Transform rendererTransform;
 
+    public Animator animator;
+    private static readonly int IsShooting = Animator.StringToHash("IsShooting");
 
     void Start()
     {
@@ -68,11 +70,13 @@ public class StandardCannon : Weapon
 
     public override void StartFiringWeapon()
     {
+        animator.SetBool(IsShooting, true);
         fireWeapon = true;
     }
 
     public override void StopFiringWeapon()
     {
+        animator.SetBool(IsShooting, false);
         fireWeapon = false;
     }
 

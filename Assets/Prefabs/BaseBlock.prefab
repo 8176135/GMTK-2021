@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5977778622179969922}
   - component: {fileID: -109334933507652232}
   - component: {fileID: 4792256869287860565}
+  - component: {fileID: 680357412619997343}
   m_Layer: 0
   m_Name: BaseBlock
   m_TagString: Untagged
@@ -148,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6c4eb483b87f154d93a0aab6acbfd5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BlockCount: 1
   rigidbody: {fileID: 0}
   connectedToParent:
     m_PersistentCalls:
@@ -192,6 +194,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &680357412619997343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82946041674254959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c36a13a2a16b3a4d9424479523aa6a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathParticles: {fileID: 4597897282993714861, guid: 72c320a4a07d42b4c91fc38bde453ca4, type: 3}
 --- !u!1 &1033870910722943008
 GameObject:
   m_ObjectHideFlags: 0
