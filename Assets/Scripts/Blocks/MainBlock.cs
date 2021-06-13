@@ -82,7 +82,10 @@ public class MainBlock : MonoBehaviour
         {
             (newBlock.GetComponent<Thruster>()).SetVisuals(0, 0);
         };
-        this.weapons.Remove(newBlock);
+        if (this.weapons.Remove(newBlock))
+        {
+            (newBlock.GetComponent<Weapon>()).StopFiringWeapon();
+        }
         if (this.parentBlock != false)
         {
             this.parentBlock.RemoveMisc(newBlock);
