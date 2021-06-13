@@ -29,7 +29,7 @@ public class MainBlock : MonoBehaviour
     // public float debugThrustValue = 50;
 
     public bool connectedToShip = false;
-    
+
     // Audio stuff
     private AudioSource audioSource;
     public AudioClip audioAttach;
@@ -118,7 +118,8 @@ public class MainBlock : MonoBehaviour
             connectedObject.RemoveFromParent();
         }
 
-        if (this.parentBlock && !this.parentBlock.IsDestroyed() && !this.gameObject.IsDestroyed())
+        if (!this.IsDestroyed() && !this.gameObject.IsDestroyed() && this.parentBlock &&
+            !this.parentBlock.IsDestroyed())
         {
             this.parentBlock.RemoveMisc(this.gameObject);
 

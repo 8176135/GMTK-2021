@@ -12,6 +12,7 @@ namespace Player
         public GameObject player;
         public GameObject replayMenu;
         public GameObject scoreUI;
+
         public void Update()
         {
             if (player.IsDestroyed() && !replayMenu.activeSelf)
