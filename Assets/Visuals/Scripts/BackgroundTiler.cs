@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class BackgroundTiler : MonoBehaviour
 {
+    [SerializeField]
     public GameObject backgroundTile;
     
+    [SerializeField]
     public int numberOfTilesX = 100;
+    [SerializeField]
     public int numberOfTilesY = 100;
 
+    [SerializeField]
     public float spriteWidth = 1;
+    [SerializeField]
     public float spriteHeight = 1;
     
     private List<GameObject> _backgroundList = new List<GameObject>();
