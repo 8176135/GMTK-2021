@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class World : MonoBehaviour
 {
+    [Header("SubObject Ref")]
+    public GameObject blocks;
+    public GameObject terrain;
+    
     [Header("Wall ref")]
     public Transform wallNorth;
     public Transform wallSouth;
@@ -28,10 +31,10 @@ public class World : MonoBehaviour
     [Header("Terrain max passes")]
     [Range(1, 128)]
     public int maxPasses = 1;
-
-    private GameObject[] obstacles;
-    private GameObject[] blocks;
+    
     private Rect[] allRects = new Rect[0];
+    private float[,] noiseMap;
+    private bool[][] perlinMap;
     
     
     // Start is called before the first frame update
@@ -49,6 +52,10 @@ public class World : MonoBehaviour
         
         Random.InitState(seed);
 
+        Noise.Seed = seed;
+        noiseMap = Noise.GenerateNoiseMap(size, size);
+
+        allRects = new Rect[0];
         CleanTerrain();
         CleanBlocks();
 
@@ -81,7 +88,6 @@ public class World : MonoBehaviour
 
     public void PlaceTerrain()
     {
-        var placedObstacles = new List<GameObject>();
         var placedObRectangles = new List<Rect>();
         placedObRectangles.AddRange(allRects);
         
@@ -89,8 +95,7 @@ public class World : MonoBehaviour
         
         for (int i = 1; i < maxPasses + 1; i++)
         {
-            var scale = Mathf.Lerp(((float) size / 10) - i,  1f, (float) i / (maxPasses + 1));
-            var halfScale = scale / 2;
+            // var scale = Mathf.Lerp(((float) size / 10) - i,  1f, (float) i / (maxPasses + 1));
 
             var fails = 0;
             var success = 0;
@@ -99,6 +104,16 @@ public class World : MonoBehaviour
             {
                 var x = Random.Range(-halfSize, halfSize);
                 var y = Random.Range(-halfSize, halfSize);
+
+                var perlinValue = noiseMap[(int) (x + halfSize), (int) (y + halfSize)];
+                if (perlinValue < 0.2f)
+                {
+                    fails++;
+                    continue;
+                }
+
+                var scale = Mathf.Lerp(1, 10, perlinValue);
+                var halfScale = scale / 2;
 
                 var thisRect = new Rect(x - halfScale, y - halfScale, scale, scale);
 
@@ -117,7 +132,7 @@ public class World : MonoBehaviour
                     continue;
                 }
                 
-                var spawned = Instantiate(obstacle, new Vector3(x, y, 0f), Quaternion.identity);
+                var spawned = Instantiate(obstacle, new Vector3(x, y, 0f), Quaternion.identity, terrain.transform);
                 spawned.transform.localScale = new Vector3(scale, scale, 1f);
 
                 var angle = Random.Range(0, 360);
@@ -127,52 +142,32 @@ public class World : MonoBehaviour
                 if (angle >= 270 && angle < 360) angle = 270;
                 
                 spawned.transform.Rotate(0, 0, angle);
-                placedObstacles.Add(spawned);
                 placedObRectangles.Add(new Rect(x - halfScale, y - halfScale, scale, scale));
                 
                 success++;
             }
         }
-
-        obstacles = placedObstacles.ToArray();
     }
 
     public void CleanTerrain()
     {
-        if (obstacles == null)
+        for (int i = terrain.transform.childCount-1; i >= 0; i--)
         {
-            obstacles = new GameObject[0];
-            return;
+            DestroyImmediate(terrain.transform.GetChild(i).gameObject);
         }
-        
-        foreach (var ob in obstacles)
-        {
-            DestroyImmediate(ob);
-        }
-
-        obstacles = new GameObject[0];
     }
 
     public void CleanBlocks()
     {
-        if (blocks == null)
+        for (int i = blocks.transform.childCount-1; i >= 0; i--)
         {
-            blocks = new GameObject[0];
-            return;
+            DestroyImmediate(blocks.transform.GetChild(i).gameObject);
         }
-        
-        foreach (var bl in blocks)
-        {
-            DestroyImmediate(bl);
-        }
-
-        blocks = new GameObject[0];
     }
     
     public void PlaceBlocks()
     {
         var halfSize = (float) size / 2;
-        var placedBlocks = new List<GameObject>();
         var placedBlockRects = new List<Rect>();
         
         var scale = 1f;
@@ -189,6 +184,13 @@ public class World : MonoBehaviour
                 {
                     var x = Random.Range(-halfSize, halfSize);
                     var y = Random.Range(-halfSize, halfSize);
+                    
+                    var perlinValue = noiseMap[(int) (x + halfSize), (int) (y + halfSize)];
+                    if (perlinValue < 0.2f)
+                    {
+                        fails++;
+                        continue;
+                    }
 
                     var thisRect = new Rect(x - halfScale, y - halfScale, 1, 1);
 
@@ -217,7 +219,7 @@ public class World : MonoBehaviour
                         continue;
                     }
                 
-                    var spawned = Instantiate(blockData.block, new Vector3(x, y, 0f), Quaternion.identity);
+                    var spawned = Instantiate(blockData.block, new Vector3(x, y, 0f), Quaternion.identity, blocks.transform);
 
                     var angle = Random.Range(0, 360);
                     if (angle < 90) angle = 0;
@@ -226,15 +228,12 @@ public class World : MonoBehaviour
                     if (angle >= 270 && angle < 360) angle = 270;
                 
                     spawned.transform.Rotate(0, 0, angle);
-                    placedBlocks.Add(spawned);
                     placedBlockRects.Add(new Rect(x - halfScale, y - halfScale, 1, 1));
                 
                     success++;
                 }
             }
         }
-
-        blocks = placedBlocks.ToArray();
 
         var temp = new List<Rect>(allRects);
         temp.AddRange(placedBlockRects.ToArray());
