@@ -55,14 +55,6 @@ public class World : MonoBehaviour
         CleanTerrain();
         CleanBlocks();
 
-        var localScale = new Vector3(size, size, 0);
-        
-        // Update background
-        background.numberOfTilesX = size/10;
-        background.numberOfTilesY = size/10;
-        background.Destroy();
-        background.Create();
-
         var halfSize = (float) size / 2;
         var halfWallWidth = wallWidth / 2;
         
