@@ -11,12 +11,15 @@ public class StandardCannon : Weapon
     public GameObject bullet;
     public Transform rendererTransform;
 
-    public Animator animator;
+    // public Animator animator;
     private static readonly int IsShooting = Animator.StringToHash("IsShooting");
 
     public ShakePreset shakerPreset;
+
+    private ParticleSystem muzzleFlash;
     void Start()
     {
+        muzzleFlash = GetComponentInChildren<ParticleSystem>();
         weaponInterval += Random.Range(weaponInterval * -0.2f, weaponInterval * 0.2f);
         base.Start();
     }
@@ -72,18 +75,21 @@ public class StandardCannon : Weapon
             this.mainBlock.rigidbody.AddForce(-transform.forward * 10, ForceMode2D.Impulse);
             spawnedBullet.ownedRootBlock = this.mainBlock.GetRootBlock();
             Shaker.ShakeAllFromPoint(position + new Vector3(0,0,-10), 10.0f, shakerPreset);
+            // muzzleFlash.transform.rotation = transform.rotation;
+            muzzleFlash.Clear();
+            muzzleFlash.Play();
         }
     }
 
     public override void StartFiringWeapon()
     {
-        animator.SetBool(IsShooting, true);
+        // animator.SetBool(IsShooting, true);
         fireWeapon = true;
     }
 
     public override void StopFiringWeapon()
     {
-        animator.SetBool(IsShooting, false);
+        // animator.SetBool(IsShooting, false);
         fireWeapon = false;
     }
 
