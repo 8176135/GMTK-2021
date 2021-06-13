@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class World : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class World : MonoBehaviour
     public GameObject obstacle;
     
     [Header("BG Ref")]
-    public SpriteRenderer background;
+    public BackgroundTiler background;
     
     [Header("World Limits")]
     public int size = 2048;
@@ -51,8 +52,12 @@ public class World : MonoBehaviour
         CleanTerrain();
 
         var localScale = new Vector3(size, size, 0);
-        background.transform.localScale = localScale;
         
+        // Update background
+        background.numberOfTilesX = size/10;
+        background.numberOfTilesY = size/10;
+        background.Destroy();
+        background.Create();
 
         var halfSize = (float) size / 2;
         var halfWallWidth = wallWidth / 2;
