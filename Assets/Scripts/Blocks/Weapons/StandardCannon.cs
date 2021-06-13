@@ -17,8 +17,10 @@ public class StandardCannon : Weapon
     public ShakePreset shakerPreset;
 
     private ParticleSystem muzzleFlash;
+    private AudioSource _audioSource;
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         muzzleFlash = GetComponentInChildren<ParticleSystem>();
         weaponInterval += Random.Range(weaponInterval * -0.2f, weaponInterval * 0.2f);
         base.Start();
@@ -78,6 +80,7 @@ public class StandardCannon : Weapon
             // muzzleFlash.transform.rotation = transform.rotation;
             muzzleFlash.Clear();
             muzzleFlash.Play();
+            _audioSource.Play();
         }
     }
 

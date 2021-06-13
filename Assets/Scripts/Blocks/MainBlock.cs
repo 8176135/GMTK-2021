@@ -29,10 +29,16 @@ public class MainBlock : MonoBehaviour
     // public float debugThrustValue = 50;
 
     public bool connectedToShip = false;
+    
+    // Audio stuff
+    private AudioSource audioSource;
+    public AudioClip audioAttach;
+    public AudioClip audioDetach;
 
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = this.GetComponent<AudioSource>();
         parentJoint = this.GetComponent<FixedJoint2D>();
         rigidbody = this.GetComponent<Rigidbody2D>();
         // massSum = rigidbody.mass;
@@ -124,6 +130,7 @@ public class MainBlock : MonoBehaviour
         this.parentJoint.connectedBody = null;
         this.parentBlock = null;
         this.connectedToShip = false;
+        audioSource.PlayOneShot(audioDetach);
     }
 
     void ConnectToShip(MainBlock otherBlock)
@@ -137,6 +144,7 @@ public class MainBlock : MonoBehaviour
         otherBlock.UpdateBlockCount(this.BlockCount);
         // otherBlock.UpdateCenterOfMass();
         connectedToParent.Invoke(otherBlock);
+        audioSource.PlayOneShot(audioAttach);
     }
 
     void UpdateBlockCount(int delta)

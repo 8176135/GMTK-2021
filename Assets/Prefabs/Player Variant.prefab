@@ -186,7 +186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 82946041674254959, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Player Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3758269011419952339, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: m_RootOrder
@@ -243,6 +243,10 @@ PrefabInstance:
     - target: {fileID: 5977778622179969922, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
       propertyPath: debugThrustValue
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6040693704197264063, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
+      propertyPath: m_Volume
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50e555fc2cf4a974bbdd2282657d6439, type: 3}
