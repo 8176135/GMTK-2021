@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using MilkShake;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -22,6 +23,8 @@ public class MainBlock : MonoBehaviour
 
     public float massSum;
     public Vector2 calculatedCenterOfMass;
+
+    public ShakePreset destroyedShakePreset;
 
     // public float debugThrustValue = 50;
 
@@ -108,7 +111,8 @@ public class MainBlock : MonoBehaviour
         {
             connectedObject.RemoveFromParent();
         }
-        if (this.parentBlock)
+
+        if (this.parentBlock && !this.parentBlock.IsDestroyed())
         {
             this.parentBlock.RemoveMisc(this.gameObject);
 
@@ -201,8 +205,12 @@ public class MainBlock : MonoBehaviour
                 RemoveFromParent();
                 Destroy(bullet.transform.gameObject);
                 Destroy(gameObject);
-                // TODO: spawn explosion
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        Shaker.ShakeAllFromPoint(transform.position + new Vector3(0,0, -10.0f), 15.0f, destroyedShakePreset);
     }
 }

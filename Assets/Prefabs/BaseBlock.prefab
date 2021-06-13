@@ -156,6 +156,7 @@ MonoBehaviour:
       m_Calls: []
   massSum: 0
   calculatedCenterOfMass: {x: 0, y: 0}
+  destroyedShakePreset: {fileID: 11400000, guid: 6233542961b10164b855ada3d3438d11, type: 2}
   connectedToShip: 0
 --- !u!255 &-109334933507652232
 FixedJoint2D:

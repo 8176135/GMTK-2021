@@ -1,4 +1,5 @@
-﻿using Unity.VisualScripting;
+﻿using MilkShake;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -13,8 +14,10 @@ public class StandardCannon : Weapon
     public Animator animator;
     private static readonly int IsShooting = Animator.StringToHash("IsShooting");
 
+    public ShakePreset shakerPreset;
     void Start()
     {
+        weaponInterval += Random.Range(weaponInterval * -0.2f, weaponInterval * 0.2f);
         base.Start();
     }
 
@@ -61,12 +64,14 @@ public class StandardCannon : Weapon
     {
         if (weaponCooldown >= weaponInterval)
         {
-            weaponCooldown = 0;
-            var spawnedObj = Instantiate(bullet, transform.position, rendererTransform.rotation);
+            // Please keep this as -= not set to 0
+            weaponCooldown -= weaponInterval;
+            var position = transform.position;
+            var spawnedObj = Instantiate(bullet, position, rendererTransform.rotation);
             var spawnedBullet = spawnedObj.GetComponent<Bullet>();
-            Assert.IsNotNull(spawnedBullet);
             this.mainBlock.rigidbody.AddForce(-transform.forward * 10, ForceMode2D.Impulse);
             spawnedBullet.ownedRootBlock = this.mainBlock.GetRootBlock();
+            Shaker.ShakeAllFromPoint(position + new Vector3(0,0,-10), 10.0f, shakerPreset);
         }
     }
 

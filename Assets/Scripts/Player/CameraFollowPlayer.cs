@@ -10,7 +10,7 @@ public class CameraFollowPlayer : MonoBehaviour
 
     void Start()
     {
-        camera = GetComponent<Camera>();
+        camera = GetComponentInChildren<Camera>();
         player = FindObjectOfType<PlayerController>().GetComponent<MainBlock>();
     }
 
