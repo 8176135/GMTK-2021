@@ -13,6 +13,9 @@ public class World : MonoBehaviour
     [Header("Obstacle ref")]
     public GameObject obstacle;
     
+    [Header("BG Ref")]
+    public SpriteRenderer background;
+    
     [Header("World Limits")]
     public int size = 2048;
     public float wallWidth = 64f;
@@ -46,6 +49,10 @@ public class World : MonoBehaviour
         Random.InitState(seed);
 
         CleanTerrain();
+
+        var localScale = new Vector3(size, size, 0);
+        background.transform.localScale = localScale;
+        
 
         var halfSize = (float) size / 2;
         var halfWallWidth = wallWidth / 2;
@@ -113,6 +120,10 @@ public class World : MonoBehaviour
                 
                 var spawned = Instantiate(obstacle, new Vector3(x, y, 0f), Quaternion.identity);
                 spawned.transform.localScale = new Vector3(scale, scale, 1f);
+                
+                
+                
+                spawned.transform.Rotate(0, 0, Random.Range(0, 360));
                 placedObstacles.Add(spawned);
                 placedObRectangles.Add(new Rect(x - halfScale, y - halfScale, scale, scale));
                 
