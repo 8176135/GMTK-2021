@@ -122,8 +122,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireWeapon: 0
-  weaponInterval: 1
-  weaponCooldown: 0
+  weaponInterval: 2
+  weaponCooldown: 2
   bullet: {fileID: 54778591206982149, guid: 86cd3579a6cc8486194beecb000fec56, type: 3}
   rendererTransform: {fileID: 768468269354998642}
   animator: {fileID: 653994837448838941}

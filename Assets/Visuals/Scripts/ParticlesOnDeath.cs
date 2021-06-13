@@ -9,7 +9,8 @@ public class ParticlesOnDeath : MonoBehaviour
     
     private void OnDestroy()
     {
-        var gameObj = Instantiate(deathParticles);
-        gameObj.transform.position = transform.position;
+        var position = transform.position;
+        var gameObj = Instantiate(deathParticles, position, transform.rotation);
+        gameObj.transform.position = position;
     }
 }

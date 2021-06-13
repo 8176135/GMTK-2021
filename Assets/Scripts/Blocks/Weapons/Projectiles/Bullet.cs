@@ -10,6 +10,8 @@ public class Bullet : MonoBehaviour
     private new Rigidbody2D rigidbody2D;
     public MainBlock ownedRootBlock;
 
+    public ParticleSystem deathParticles;
+
     public float timeToLive = 10;
     // Start is called before the first frame update
     void Start()

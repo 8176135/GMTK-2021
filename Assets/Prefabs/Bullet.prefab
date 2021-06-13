@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6277629935179615922}
   - component: {fileID: 8139551271133925845}
   - component: {fileID: 3105935580203047307}
+  - component: {fileID: 2336908195809627046}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -49,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initVelocity: 6
   ownedRootBlock: {fileID: 0}
+  deathParticles: {fileID: 0}
   timeToLive: 10
 --- !u!50 &6277629935179615922
 Rigidbody2D:
@@ -101,7 +103,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initVelocity: 0
   ownedRootBlock: {fileID: 0}
+  deathParticles: {fileID: 0}
   timeToLive: 10
+--- !u!114 &2336908195809627046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54778591206982149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c36a13a2a16b3a4d9424479523aa6a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathParticles: {fileID: 151031375875134703, guid: 9fa3a90dd2c741349839e2081fe8a418, type: 3}
 --- !u!1 &1107256578563996425
 GameObject:
   m_ObjectHideFlags: 0
