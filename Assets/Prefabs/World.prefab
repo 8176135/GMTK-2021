@@ -51,10 +51,13 @@ MonoBehaviour:
   wallSouth: {fileID: 2152802426455001603}
   wallEast: {fileID: 8082972808725262550}
   wallWest: {fileID: 6819368291048481769}
+  obstacle: {fileID: 5874931586957742358, guid: 0d76a18ada26c1740bebcc8c9ec03fa4, type: 3}
   size: 512
+  wallWidth: 64
+  autoUpdate: 0
   useRandomSeed: 0
   seed: 0
-  autoUpdate: 0
+  maxPasses: 1
 --- !u!1 &664200841955007458
 GameObject:
   m_ObjectHideFlags: 0

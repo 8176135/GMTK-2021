@@ -17,5 +17,9 @@ public class WorldGenerate : Editor {
         if (GUILayout.Button ("Generate")) {
             mapGen.Generate();
         }
+        
+        if (GUILayout.Button ("Clean Terrain")) {
+            mapGen.CleanTerrain();
+        }
     }
 }
