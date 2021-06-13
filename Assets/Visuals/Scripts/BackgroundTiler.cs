@@ -14,11 +14,10 @@ public class BackgroundTiler : MonoBehaviour
 
     public bool autoUpdate = true;
     
-    private List<GameObject> _backgroundList;
+    private List<GameObject> _backgroundList = new List<GameObject>();
 
     public void Start()
     {
-        _backgroundList = new List<GameObject>();
         Create();
     }
     
