@@ -78,7 +78,10 @@ public class MainBlock : MonoBehaviour
 
     public void RemoveMisc(GameObject newBlock)
     {
-        this.thrusters.Remove(newBlock);
+        if (this.thrusters.Remove(newBlock))
+        {
+            (newBlock.GetComponent<Thruster>()).SetVisuals(0, 0);
+        };
         this.weapons.Remove(newBlock);
         if (this.parentBlock != false)
         {
