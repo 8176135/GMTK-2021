@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 public class Robot : MonoBehaviour
 {
-    private MainBlock mainBlock;
+    public MainBlock mainBlock;
     private new Rigidbody2D rigidbody2D;
     /// <summary>
     /// Where the player is looking (for player, it's where the mouse is)
@@ -111,6 +111,13 @@ public class Robot : MonoBehaviour
         rigidbody2D.AddForce(controlDirection * 0.5f);
         
         UpdateThrusters();
+    }
 
+    public void SetAimTarget(Vector2 aimPos)
+    {
+        foreach (var mainBlockWeapon in mainBlock.weapons.Values)
+        {
+            mainBlockWeapon.target = aimPos;
+        }
     }
 }

@@ -9,9 +9,10 @@ using UnityEngine.Events;
 public class MainBlock : MonoBehaviour
 {
     public HashSet<MainBlock> connectedObjects = new HashSet<MainBlock>();
+    public int BlockCount = 1;
     private MainBlock parentBlock;
     private FixedJoint2D parentJoint;
-    private new Rigidbody2D rigidbody;
+    public new Rigidbody2D rigidbody;
 
     public Dictionary<GameObject, Thruster> thrusters = new Dictionary<GameObject, Thruster>();
     public Dictionary<GameObject, Weapon> weapons = new Dictionary<GameObject, Weapon>();
@@ -52,6 +53,11 @@ public class MainBlock : MonoBehaviour
         }
     }
 
+    public int GetDifficulty()
+    {
+        return thrusters.Count + weapons.Count;
+    }
+
     public void NewThruster(Thruster newBlock)
     {
         this.thrusters.Add(newBlock.gameObject, newBlock);
@@ -72,7 +78,14 @@ public class MainBlock : MonoBehaviour
 
     public void RemoveMisc(GameObject newBlock)
     {
-        this.thrusters.Remove(newBlock);
+        if (this.thrusters.Remove(newBlock))
+        {
+            (newBlock.GetComponent<Thruster>()).SetVisuals(0, 0);
+        };
+        if (this.weapons.Remove(newBlock))
+        {
+            (newBlock.GetComponent<Weapon>()).StopFiringWeapon();
+        }
         if (this.parentBlock != false)
         {
             this.parentBlock.RemoveMisc(newBlock);
@@ -81,12 +94,20 @@ public class MainBlock : MonoBehaviour
 
     void RemoveFromParent()
     {
+        RemoveMisc(this.gameObject);
+        var toRemoveList = connectedObjects.ToList();
+        foreach (var connectedObject in toRemoveList)
+        {
+            connectedObject.RemoveFromParent();
+        }
         if (this.parentBlock != false)
         {
             this.parentBlock.connectedObjects.Remove(this);
+            this.parentBlock.UpdateBlockCount(-BlockCount);
+            this.connectedToShip = false;
         }
 
-        RemoveMisc(this.gameObject);
+
     }
 
     void ConnectToShip(MainBlock otherBlock)
@@ -97,10 +118,20 @@ public class MainBlock : MonoBehaviour
         parentJoint.enabled = true;
         otherBlock.connectedObjects.Add(this);
         otherBlock.massSum = otherBlock.GetMassSum();
+        otherBlock.UpdateBlockCount(this.BlockCount);
         // otherBlock.UpdateCenterOfMass();
         connectedToParent.Invoke(otherBlock);
     }
 
+    void UpdateBlockCount(int delta)
+    {
+        BlockCount += delta;
+        if (this.parentBlock != false)
+        {
+            this.parentBlock.UpdateBlockCount(delta);
+        }
+    }
+    
     float GetMassSum()
     {
         return this.connectedObjects.Aggregate(this.rigidbody.mass, (a, b) => a + b.GetMassSum());
